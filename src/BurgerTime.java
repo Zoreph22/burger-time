@@ -6,7 +6,7 @@ public class BurgerTime
     {
         Game game = new Game();
        
-
+        //c'est cool le congo
         Scanner sc = new Scanner(System.in);
         System.out.println("Saisissez un entier : ");
         int i = sc.nextInt();
