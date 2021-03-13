@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Player extends Thread
+public class Player implements Runnable
 {
     private int idPlayer;
     private int playerHP;
@@ -10,12 +10,19 @@ public class Player extends Thread
     
     Scanner sc;
 
-    public Player()
+    Player()
     {
         setPlayerHP(4);
+    }
+
+    public void run()
+    {
+        //Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
         setNbPepper(4);
         sc = new Scanner(System.in);
     }
+
+
 
 
     public boolean testMove(int dir)

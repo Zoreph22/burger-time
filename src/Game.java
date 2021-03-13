@@ -5,19 +5,43 @@ public class Game
 
 
     Scanner sc = new Scanner(System.in);
+
+
+    Thread player = new Thread(new Player());
     
+
     Level level = new Level(0);
+    Enemy enemies[];
+
+    private boolean testGame;
+
+
 
     public Game()
     {
-        affiche();
+        initGame();
+        runGame();
+        
     }
 
+    
 
-    public void affiche()
+    private void initGame()
     {
-        for(int i = 0; i < 17; i++)
-            System.out.println();
+       enemies = new Enemy[5];
+       player.start();
+    }
+
+    private void runGame()
+    {
+        testGame = true;
+     
+        while(testGame)
+        {
+            level.affiche();
+
+            testGame = false;
+        }
         
     }
 
