@@ -1,9 +1,16 @@
-public class Enemy extends Thread
+import java.util.*;
+
+public class Enemy implements Runnable
 {
     private String enemyType; //egg, sausage et plus si affinité 
 
 
-    public Enemy(String enemyType)
+    Enemy(String enemyType)
+    {
+        setEnemyType(enemyType);
+    }
+
+    public void run()
     {
         setEnemyType(enemyType);
     }

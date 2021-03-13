@@ -23,8 +23,6 @@ public class Player implements Runnable
     }
 
 
-
-
     public boolean testMove(int dir)
     {
         

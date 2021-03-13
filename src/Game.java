@@ -9,9 +9,11 @@ public class Game
 
     Thread player = new Thread(new Player());
     
+    Thread enemies[];
+    Enemy tmpenemy[];
 
     Level level = new Level(0);
-    Enemy enemies[];
+    
 
     private boolean testGame;
 
@@ -28,8 +30,21 @@ public class Game
 
     private void initGame()
     {
-       enemies = new Enemy[5];
-       player.start();
+        tmpenemy = new Enemy[5];
+        tmpenemy[0] = new Enemy("egg");
+        tmpenemy[1] = new Enemy("egg");
+        tmpenemy[2] = new Enemy("egg");
+        tmpenemy[3] = new Enemy("egg");
+        tmpenemy[4] = new Enemy("egg");
+
+        for(int i = 0; i < tmpenemy.length; i++)
+        {
+            enemies[i] = new Thread(tmpenemy[i]);
+            enemies[i].start();
+        }
+
+
+        player.start();
     }
 
     private void runGame()
