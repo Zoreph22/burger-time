@@ -4,8 +4,8 @@ public class BurgerTime
 {
     public static void main(String[] args) 
     {
-        Game game = new Game();
-       
+        Thread game = new Thread(new Game());
+        game.start();
         /*
         Scanner sc = new Scanner(System.in);
         System.out.println("Saisissez un entier : ");

@@ -1,6 +1,8 @@
 import java.util.*;
 
-public class Game
+import jdk.jshell.execution.Util;
+
+public class Game implements Runnable
 {
 
 
@@ -14,6 +16,7 @@ public class Game
 
     Level level = new Level(0);
     
+    private Thread utility = new Thread(new Utility());
 
     private boolean testGame;
 
@@ -22,10 +25,10 @@ public class Game
     public Game()
     {
         initGame();
-        runGame();
         
     }
 
+    
     
 
     private void initGame()
@@ -45,20 +48,27 @@ public class Game
 */
 
         player.start();
+        utility.start();
     }
 
-    private void runGame()
+    public void run()
     {
         testGame = true;
-     
-        while(testGame)
-        {
-            //level.createLevel();
-            level.affiche();
-            testGame = false;
-        }
-        
-    }
+        int tmp = 10;
+        while(tmp >= 0)
+        {   
+            synchronized(this)
+            {
+                level.affiche();
+                notify();
+            }
+            System.out.println(player.getId());
 
+            //level.createLevel();
+            
+            
+            tmp--;
+        }
+    }
 
 }
