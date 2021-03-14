@@ -30,7 +30,7 @@ public class Game
 
     private void initGame()
     {
-        tmpenemy = new Enemy[5];
+       /* tmpenemy = new Enemy[5];
         tmpenemy[0] = new Enemy("egg");
         tmpenemy[1] = new Enemy("egg");
         tmpenemy[2] = new Enemy("egg");
@@ -42,7 +42,7 @@ public class Game
             enemies[i] = new Thread(tmpenemy[i]);
             enemies[i].start();
         }
-
+*/
 
         player.start();
     }
@@ -53,8 +53,8 @@ public class Game
      
         while(testGame)
         {
+            //level.createLevel();
             level.affiche();
-
             testGame = false;
         }
         
