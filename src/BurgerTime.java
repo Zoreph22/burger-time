@@ -12,7 +12,8 @@ public class BurgerTime
         int i = sc.nextInt();
         System.out.println("Saisissez une chaîne : ");
         //On vide la ligne avant d'en lire une autre
-        
+        sc.nextLine();
+        String str = sc.nextLine();      
         System.out.println("FIN ! ");*/
     }
 

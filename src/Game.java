@@ -33,7 +33,7 @@ public class Game implements Runnable
 
     private void initGame()
     {
-       /* tmpenemy = new Enemy[5];
+        tmpenemy = new Enemy[5];
         tmpenemy[0] = new Enemy("egg");
         tmpenemy[1] = new Enemy("egg");
         tmpenemy[2] = new Enemy("egg");
@@ -45,7 +45,7 @@ public class Game implements Runnable
             enemies[i] = new Thread(tmpenemy[i]);
             enemies[i].start();
         }
-*/
+
 
         player.start();
         utility.start();
@@ -54,6 +54,7 @@ public class Game implements Runnable
     public void run()
     {
         testGame = true;
+<<<<<<< HEAD
         int tmp = 10;
         while(tmp >= 0)
         {   
@@ -68,6 +69,14 @@ public class Game implements Runnable
             
             
             tmp--;
+=======
+     
+        while(testGame)
+        {
+            level.affiche();
+
+            testGame = false;
+>>>>>>> parent of 8e11064 (commit 4)
         }
     }
 
