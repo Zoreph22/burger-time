@@ -14,9 +14,9 @@ public class Game implements Runnable
     Thread enemies[];
     Enemy tmpenemy[];
 
-    Level level = new Level(-1);
+    Level level = new Level(0);
     
-  //  private Thread utility = new Thread(new Utility());
+    private Thread utility = new Thread(new Utility());
 
     private boolean testGame;
 
@@ -48,14 +48,14 @@ public class Game implements Runnable
 */
 
         player.start();
-
+        utility.start();
     }
 
     public void run()
     {
         testGame = true;
         int tmp = 10;
-        /*while(tmp >= 0)
+        while(tmp >= 0)
         {   
             synchronized(this)
             {
@@ -64,12 +64,11 @@ public class Game implements Runnable
             }
             System.out.println(player.getId());
 
-            
+            //level.createLevel();
             
             
             tmp--;
-        }*/
-        level.createLevel();
+        }
     }
 
 }
