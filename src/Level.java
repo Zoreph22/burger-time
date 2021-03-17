@@ -27,12 +27,14 @@ public class Level {
 
     public Level(int level)
     {
-        initSave();
+        
 
         if(level == 0)
             levelCourant = 0;
-
+        
+        initSave();
         setLevels();
+
     }
 
     private void initSave()
@@ -43,6 +45,7 @@ public class Level {
             if(f[i].isFile())
                 nbLevels++;
 
+        System.out.print(nbLevels);
         sc = new Scanner(System.in);
         
         try {
@@ -82,12 +85,12 @@ public class Level {
 
     public void createLevel()
     {
-        
+        nbLevels++;
         levels = new char[levelCourant][height][width];
         for(int i = 0; i<height;i++)
         {
             
-            affiche();
+            //affiche();
             String oui = sc.nextLine(); 
             System.out.println("\n\n\n");   
             for(int j = 0; j < width; j++)
