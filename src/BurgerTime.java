@@ -5,7 +5,7 @@ public class BurgerTime
     public static void main(String[] args) 
     {
         Game game = new Game();
-       
+        
         /*
         Scanner sc = new Scanner(System.in);
         System.out.println("Saisissez un entier : ");
@@ -14,6 +14,8 @@ public class BurgerTime
         //On vide la ligne avant d'en lire une autre
         
         System.out.println("FIN ! ");*/
+
+        
     }
 
     

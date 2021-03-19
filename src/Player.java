@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Player implements Runnable
 {
-    private int idPlayer;
+    private int idPlayerX, idPlayerY;
     private int playerHP;
     private int playerScore;
     private int nbPepper;
@@ -10,8 +10,9 @@ public class Player implements Runnable
     
     Scanner sc;
 
-    Player()
-    {
+    Player(int X, int Y)
+    { 
+        setIdPlayer(X, Y);
         setPlayerHP(4);
     }
 
@@ -29,12 +30,14 @@ public class Player implements Runnable
         return true;
     }
 
-    public int getIdPlayer() {return this.idPlayer;}
+    public int getIdPlayerX() {return this.idPlayerX;}
+    public int getIdPlayerY() {return this.idPlayerY;}
     public int getPlayerHP() {return this.playerHP;}
     public int getPlayerScore() {return this.playerScore;}
     public int getNbPepper() {return this.nbPepper;}
+    public char getCharPlayer() {return this.cook;}
 
-    public void setIdPlayer(int id) {this.idPlayer = id;}
+    public void setIdPlayer(int idX, int idY) {this.idPlayerX = idX; this.idPlayerY = idY;}
     public void setPlayerHP(int hp) {this.playerHP = hp;}
     public void setPlayerScore(int score) {this.playerScore = score;}
     public void setNbPepper(int pepper) {this.nbPepper = pepper;}

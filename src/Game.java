@@ -1,13 +1,12 @@
 import java.util.*;
-
 public class Game
 {
 
 
     Scanner sc = new Scanner(System.in);
+    Player player;
 
-
-    Thread player = new Thread(new Player());
+    //Thread player;
     
     Thread enemies[];
     Enemy tmpenemy[];
@@ -43,18 +42,30 @@ public class Game
             enemies[i].start();
         }
 */
-
-        player.start();
+        //player = new Thread(new Player(level.widthLenghtLevel()-2, level.heightLenghtLevel()));
+        //player.start();
+        player = new Player(level.widthLenghtLevel()-3, level.heightLenghtLevel());
+        level.changechar(player.getIdPlayerX(), player.getIdPlayerY()-1, player.getCharPlayer());
     }
 
     private void runGame()
     {
         testGame = true;
-     
+        System.out.print(level.widthLenghtLevel()+"        "+ (level.heightLenghtLevel()));
+        System.out.print(level.getChar(player.getIdPlayerX(), player.getIdPlayerY()-2));
         while(testGame)
         {
-            //level.createLevel();
             level.affiche();
+            String test = sc.nextLine();
+            if(test.equals("z") && level.getChar(player.getIdPlayerX(), player.getIdPlayerY()-2) == '#')
+            {
+                level.changechar(player.getIdPlayerX(), player.getIdPlayerY()-1, '_');
+                level.changechar(player.getIdPlayerX(), player.getIdPlayerY()-2, player.getCharPlayer());
+            }
+
+            level.affiche();
+            
+
             testGame = false;
         }
         

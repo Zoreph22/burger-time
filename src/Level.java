@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-import javax.xml.crypto.Data;
+
 
 public class Level {
     
@@ -23,16 +23,18 @@ public class Level {
     PrintWriter settingsWriter;
     File settings;
     Scanner settingsReader;
-    Scanner saveReader;
+
 
     public Level(int level)
     {
-        initSave();
+        //initSave();
+        
 
         if(level == 0)
             levelCourant = 0;
 
         setLevels();
+        
     }
 
     private void initSave()
@@ -50,11 +52,10 @@ public class Level {
             settingsReader = new Scanner(settings);
             nbStage = Integer.parseInt(settingsReader.nextLine());
             nbStage++;
-            File save = new File("data/save"+nbStage);
+            
             nbStage--;
             File save2 = new File("data/save"+nbStage);
-            saveReader = new Scanner(save2);
-            saveWriter = new PrintWriter(save);
+            
             settingsWriter = new PrintWriter(settings);
             
             settingsWriter.println(nbStage);
@@ -66,8 +67,8 @@ public class Level {
     }
 
     public char read(int i, int j) {return levels[levelCourant][i][j];}
-    public int widthLenghtLevel() {return levels[levelCourant][0].length;}
-    public int heightLenghtLevel() {return levels[levelCourant].length;}
+    public int widthLenghtLevel() {return levels[levelCourant].length;}
+    public int heightLenghtLevel() {return levels[levelCourant][0].length;}
 
     public void affiche()
     {
@@ -75,98 +76,44 @@ public class Level {
         {
             for(int j = 0; j < widthLenghtLevel(); j++)
                 System.out.print(read(i,j));
-                System.out.println();
+            System.out.println();
         }
     }
 
-
-    public void createLevel()
+    public char getChar(int X, int Y)
     {
-        
-        levels = new char[levelCourant][height][width];
-        for(int i = 0; i<height;i++)
-        {
-            
-            affiche();
-            String oui = sc.nextLine(); 
-            System.out.println("\n\n\n");   
-            for(int j = 0; j < width; j++)
-            {
-                levels[levelCourant][i][j] = oui.charAt(j);
-            }
-            
-            
-        } 
-        affiche(); 
-        String str;
-        for(int i = 0; i < height; i++)
-        {
-            str = "";
-            for(int j = 0; j < width; j++)
-            {
-                if(levels[levelCourant][i][j] == '_')
-                    str += "floor";
-                else if(levels[levelCourant][i][j] == '#')
-                    str += "ladder";
-                else if(levels[levelCourant][i][j] == 'S')
-                    str += "salad";
-                else if(levels[levelCourant][i][j] == 'M')
-                    str += "meat";
-                else if(levels[levelCourant][i][j] == 'B')
-                    str += "bread";
-                else if(levels[levelCourant][i][j] == ' ')
-                    str += "air";
-                    
-                str += ",";
-            }
-            
-            saveWriter.println(str);
-
-        }
-        settingsWriter.close();
-        saveWriter.close();
-        settingsReader.close();
-        saveReader.close();
+        return levels[0][Y][X];
     }
+   
+    public void changechar(int X, int Y, char c)
+    {
+        levels[0][Y][X] = c;
+    }
+
 
     private void setLevels()
     {
-        String str[][] = new String[height][width];
-        saveReader.useDelimiter(",");
+        levels = new char[1][][];
 
-        for(int i = 0; i < height; i++)
+        levels[0] = new char[][]
         {
-            for(int j = 0; j < width; j++)
-            {
-                str[i][j] = saveReader.next();
-            }
-            saveReader.nextLine();
-        }
-
-        levels = new char[nbLevels][height][width];
-
-        for(int i = 0; i < height; i++)
-        {
-            for(int j = 0; j < width; j++)
-            {
-                if(str[i][j].equals("floor"))
-                    levels[levelCourant][i][j] = floor;
-                else if(str[i][j].equals("ladder"))
-                    levels[levelCourant][i][j] = ladder;
-                else if(str[i][j].equals("salad"))
-                    levels[levelCourant][i][j] = salad;
-                else if(str[i][j].equals("meat"))
-                    levels[levelCourant][i][j] = meat;
-                else if(str[i][j].equals("bread"))
-                    levels[levelCourant][i][j] = bread;
-                else if(str[i][j].equals("air"))
-                    levels[levelCourant][i][j] = air;
-            }
-        }
-
-        settingsWriter.close();
-        saveWriter.close();
-        settingsReader.close();
-        saveReader.close();
+            {air,air,air,air,air,air,air,air,air,air,air,air,air,air,air,air,air},
+            {air,air,air,air,air,air,air,air,air,air,air,air,air,air,air,air,air},
+            {floor,floor,floor,floor,floor,bread,bread,bread,floor,bread,bread,bread,floor,bread,bread,bread,floor},
+            {ladder,air,air,air,ladder,air,ladder,air,ladder,air,air,air,ladder,air,air,air,ladder},
+            {ladder,air,air,air,ladder,air,ladder,air,ladder,air,air,air,ladder,air,air,air,ladder},
+            {floor,bread,bread,bread,floor,air,ladder,air,floor,salad,salad,salad,floor,salad,salad,salad,floor},
+            {air,air,ladder,air,ladder,air,ladder,air,ladder,air,ladder,air,ladder,air,air,air,ladder},
+            {air,air,ladder,air,floor,floor,floor,floor,floor,air,ladder,air,ladder,air,air,air,ladder},
+            {air,air,ladder,air,ladder,air,air,air,ladder,air,ladder,air,ladder,air,air,air,ladder},
+            {floor,salad,salad,salad,floor,air,air,air,ladder,air,ladder,air,floor,meat,meat,meat,floor},
+            {ladder,air,ladder,air,ladder,salad,salad,salad,floor,meat,meat,meat,floor,air,ladder,air,air},
+            {ladder,air,ladder,air,ladder,air,air,air,ladder,air,air,air,ladder,air,ladder,air,air},
+            {ladder,air,ladder,air,ladder,air,air,air,ladder,air,air,air,floor,bread,bread,bread,floor},
+            {ladder,air,ladder,air,ladder,air,air,air,ladder,air,air,air,ladder,air,ladder,air,ladder},
+            {floor,meat,meat,meat,floor,meat,meat,meat,floor,floor,floor,floor,floor,air,ladder,air,ladder,air,ladder},
+            {ladder,air,air,air,ladder,air,air,air,ladder,air,air,air,ladder,air,ladder,air,ladder,air,ladder},
+            {floor,bread,bread,bread,floor,bread,bread,bread,floor,bread,bread,bread,floor,floor,floor,floor,floor},
+        };
     }  
 }
