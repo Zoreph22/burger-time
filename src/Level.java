@@ -32,7 +32,7 @@ public class Level {
         return levels[0][Y][X];
     }
    
-    public void changechar(int X, int Y, char c)
+    public void setChar(int X, int Y, char c)
     {
         levels[0][Y][X] = c;
     }
