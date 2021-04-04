@@ -7,13 +7,8 @@ public class Level {
     
     private char ladder = '#';
     private char air = ' ';
-    private char bread = 'B';
-    private char salad = 'S';
-    private char meat = 'M';
     private char floor = '_';
-    private char pepper = 'P';
-    private int width = 5;
-    private int height = 3;
+
     private char levels[][][];
     private char nbLevels;
     private int nbStage = 0;
@@ -99,21 +94,21 @@ public class Level {
         {
             {air,air,air,air,air,air,air,air,air,air,air,air,air,air,air,air,air},
             {air,air,air,air,air,air,air,air,air,air,air,air,air,air,air,air,air},
-            {floor,floor,floor,floor,floor,bread,bread,bread,floor,bread,bread,bread,floor,bread,bread,bread,floor},
+            {floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor},
             {ladder,air,air,air,ladder,air,ladder,air,ladder,air,air,air,ladder,air,air,air,ladder},
             {ladder,air,air,air,ladder,air,ladder,air,ladder,air,air,air,ladder,air,air,air,ladder},
-            {floor,bread,bread,bread,floor,air,ladder,air,floor,salad,salad,salad,floor,salad,salad,salad,floor},
+            {floor,floor,floor,floor,floor,air,ladder,air,floor,floor,floor,floor,floor,floor,floor,floor,floor},
             {air,air,ladder,air,ladder,air,ladder,air,ladder,air,ladder,air,ladder,air,air,air,ladder},
             {air,air,ladder,air,floor,floor,floor,floor,floor,air,ladder,air,ladder,air,air,air,ladder},
             {air,air,ladder,air,ladder,air,air,air,ladder,air,ladder,air,ladder,air,air,air,ladder},
-            {floor,salad,salad,salad,floor,air,air,air,ladder,air,ladder,air,floor,meat,meat,meat,floor},
-            {ladder,air,ladder,air,ladder,salad,salad,salad,floor,meat,meat,meat,floor,air,ladder,air,air},
+            {floor,floor,floor,floor,floor,air,air,air,ladder,air,ladder,air,floor,floor,floor,floor,floor},
+            {ladder,air,ladder,air,ladder,floor,floor,floor,floor,floor,floor,floor,floor,air,ladder,air,air},
             {ladder,air,ladder,air,ladder,air,air,air,ladder,air,air,air,ladder,air,ladder,air,air},
-            {ladder,air,ladder,air,ladder,air,air,air,ladder,air,air,air,floor,bread,bread,bread,floor},
+            {ladder,air,ladder,air,ladder,air,air,air,ladder,air,air,air,floor,floor,floor,floor,floor},
             {ladder,air,ladder,air,ladder,air,air,air,ladder,air,air,air,ladder,air,ladder,air,ladder},
-            {floor,meat,meat,meat,floor,meat,meat,meat,floor,floor,floor,floor,floor,air,ladder,air,ladder,air,ladder},
+            {floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,air,ladder,air,ladder,air,ladder},
             {ladder,air,air,air,ladder,air,air,air,ladder,air,air,air,ladder,air,ladder,air,ladder,air,ladder},
-            {floor,bread,bread,bread,floor,bread,bread,bread,floor,bread,bread,bread,floor,floor,floor,floor,floor},
+            {floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor},
         };
     }  
 }
