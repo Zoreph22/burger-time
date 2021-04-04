@@ -1,64 +1,16 @@
-import java.io.*;
-import java.util.*;
-
-
-
 public class Level {
     
     private char ladder = '#';
     private char air = ' ';
     private char floor = '_';
-
     private char levels[][][];
-    private char nbLevels;
-    private int nbStage = 0;
     private int levelCourant;
-    Scanner sc;
-    PrintWriter saveWriter;
-    PrintWriter settingsWriter;
-    File settings;
-    Scanner settingsReader;
-
 
     public Level(int level)
     {
-        //initSave();
-        
-
         if(level == 0)
             levelCourant = 0;
-
         setLevels();
-        
-    }
-
-    private void initSave()
-    {
-        File data = new File("data");
-        File[] f = data.listFiles();
-        for(int i = 0; i < f.length-1; i++)
-            if(f[i].isFile())
-                nbLevels++;
-
-        sc = new Scanner(System.in);
-        
-        try {
-            File settings = new File("data/settings");
-            settingsReader = new Scanner(settings);
-            nbStage = Integer.parseInt(settingsReader.nextLine());
-            nbStage++;
-            
-            nbStage--;
-            File save2 = new File("data/save"+nbStage);
-            
-            settingsWriter = new PrintWriter(settings);
-            
-            settingsWriter.println(nbStage);
-            
-            
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
     public char read(int i, int j) {return levels[levelCourant][i][j];}
