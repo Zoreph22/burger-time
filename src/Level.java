@@ -1,66 +1,90 @@
 public class Level {
-    
-    private char ladder = '#';
-    private char air = ' ';
-    private char floor = '_';
-    private char levels[][][];
-    private int levelCourant;
 
-    public Level(int level)
-    {
-        if(level == 0)
-            levelCourant = 0;
-        setLevels();
-    }
+	private char ladder = '▒';
+	private char air = ' ';
+	private char floor = '▬';
+	private char levels[][];
+	private int levelCourant;
 
-    public char read(int i, int j) {return levels[levelCourant][i][j];}
-    public int widthLenghtLevel() {return levels[levelCourant].length;}
-    public int heightLenghtLevel() {return levels[levelCourant][0].length;}
+	public Level(int level) {
+		levelCourant = level;
+		initLevels();
+	}
 
-    public void affiche()
-    {
-        for(int i = 0; i < heightLenghtLevel(); i++)
-        {
-            for(int j = 0; j < widthLenghtLevel(); j++)
-                System.out.print(read(i,j));
-            System.out.println();
-        }
-    }
+	public char getChar(int i, int j) {
+		return levels[i][j];
+	}
 
-    public char getChar(int X, int Y)
-    {
-        return levels[0][Y][X];
-    }
-   
-    public void setChar(int X, int Y, char c)
-    {
-        levels[0][Y][X] = c;
-    }
+	public void setChar(int i, int j, char c) {
+		levels[i][j] = c;
+	}
 
+	public int heightLenghtLevel() {
+		return levels.length;
+	}
 
-    private void setLevels()
-    {
-        levels = new char[1][][];
+	public int widthLenghtLevel() {
+		return levels[0].length;
+	}
 
-        levels[0] = new char[][]
-        {
-            {air,air,air,air,air,air,air,air,air,air,air,air,air,air,air,air,air},
-            {air,air,air,air,air,air,air,air,air,air,air,air,air,air,air,air,air},
-            {floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor},
-            {ladder,air,air,air,ladder,air,ladder,air,ladder,air,air,air,ladder,air,air,air,ladder},
-            {ladder,air,air,air,ladder,air,ladder,air,ladder,air,air,air,ladder,air,air,air,ladder},
-            {floor,floor,floor,floor,floor,air,ladder,air,floor,floor,floor,floor,floor,floor,floor,floor,floor},
-            {air,air,ladder,air,ladder,air,ladder,air,ladder,air,ladder,air,ladder,air,air,air,ladder},
-            {air,air,ladder,air,floor,floor,floor,floor,floor,air,ladder,air,ladder,air,air,air,ladder},
-            {air,air,ladder,air,ladder,air,air,air,ladder,air,ladder,air,ladder,air,air,air,ladder},
-            {floor,floor,floor,floor,floor,air,air,air,ladder,air,ladder,air,floor,floor,floor,floor,floor},
-            {ladder,air,ladder,air,ladder,floor,floor,floor,floor,floor,floor,floor,floor,air,ladder,air,air},
-            {ladder,air,ladder,air,ladder,air,air,air,ladder,air,air,air,ladder,air,ladder,air,air},
-            {ladder,air,ladder,air,ladder,air,air,air,ladder,air,air,air,floor,floor,floor,floor,floor},
-            {ladder,air,ladder,air,ladder,air,air,air,ladder,air,air,air,ladder,air,ladder,air,ladder},
-            {floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,air,ladder,air,ladder,air,ladder},
-            {ladder,air,air,air,ladder,air,air,air,ladder,air,air,air,ladder,air,ladder,air,ladder,air,ladder},
-            {floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor,floor},
-        };
-    }  
+	public void print() {
+		for (int i = 0; i < heightLenghtLevel()+3; i++) {
+			System.out.print("▄");
+		}
+		System.out.println();
+		for (int i = 0; i < heightLenghtLevel(); i++) {
+			System.out.print("▌");
+
+			for (int j = 0; j < widthLenghtLevel(); j++)
+				System.out.print(getChar(i, j));
+
+			System.out.print("▐");
+			System.out.println();
+		}
+		for (int i = 0; i < heightLenghtLevel()+3; i++) {
+			System.out.print("▀");
+		}
+		System.out.println();
+	}
+
+	private void initLevels() {
+
+		switch (this.levelCourant) {
+		default:
+			levels = new char[][] {
+					{ air, air, air, air, air, air, air, air, air, air, air, air, air, air, air, air, air },
+					{ floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor,
+							floor, floor, floor },
+					{ ladder, air, air, air, ladder, air, ladder, air, ladder, air, air, air, ladder, air, air, air,
+							ladder },
+					{ ladder, air, air, air, ladder, air, ladder, air, ladder, air, air, air, ladder, air, air, air,
+							ladder },
+					{ floor, floor, floor, floor, floor, air, ladder, air, floor, floor, floor, floor, floor, floor,
+							floor, floor, floor },
+					{ air, air, ladder, air, ladder, air, ladder, air, ladder, air, ladder, air, ladder, air, air, air,
+							ladder },
+					{ air, air, ladder, air, floor, floor, floor, floor, floor, air, ladder, air, ladder, air, air, air,
+							ladder },
+					{ air, air, ladder, air, ladder, air, air, air, ladder, air, ladder, air, ladder, air, air, air,
+							ladder },
+					{ floor, floor, floor, floor, floor, air, air, air, ladder, air, ladder, air, floor, floor, floor,
+							floor, floor },
+					{ ladder, air, ladder, air, ladder, floor, floor, floor, floor, floor, floor, floor, floor, air,
+							ladder, air, air },
+					{ ladder, air, ladder, air, ladder, air, air, air, ladder, air, air, air, ladder, air, ladder, air,
+							air },
+					{ ladder, air, ladder, air, ladder, air, air, air, ladder, air, air, air, floor, floor, floor,
+							floor, floor },
+					{ ladder, air, ladder, air, ladder, air, air, air, ladder, air, air, air, ladder, air, ladder, air,
+							ladder },
+					{ floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, air,
+							ladder, air, ladder, air, ladder },
+					{ ladder, air, air, air, ladder, air, air, air, ladder, air, air, air, ladder, air, ladder, air,
+							ladder, air, ladder },
+					{ floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor,
+							floor, floor, floor }, };
+			break;
+		}
+
+	}
 }

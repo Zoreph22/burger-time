@@ -1,17 +1,12 @@
-public class Entities extends Thread
-{
+public class Entities extends Thread {
     private String type;
 
-    public Entities()
-    {
+    public Entities() {
 
     }
 
-    public void run()
-    {
+    public void run() {
 
     }
-
-
 
 }

@@ -1,27 +1,18 @@
-import java.util.*;
+public class Game {
+    Level level = new Level(0);
+    Assiette assiette = new Assiette(4);
 
-public class Game
-{
-
-
-    public Game()
-    {
-        initGame();
-        runGame();
-        
+    public Game() {
+        level.print();
+        assiette.print();
     }
 
-    
+    private void initGame() {
 
-    private void initGame()
-    {
-       
     }
 
-    private void runGame()
-    {
-        
-    }
+    private void runGame() {
 
+    }
 
 }
