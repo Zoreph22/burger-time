@@ -5,6 +5,8 @@ public class Game {
     public Game() {
         level.print();
         assiette.print();
+
+        
     }
 
     private void initGame() {
