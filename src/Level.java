@@ -6,6 +6,10 @@ public class Level {
 	private char levels[][];
 	private int levelCourant;
 
+	private Player player;
+	private Enemy enemy;
+	private Assiette assiette;
+
 	public Level(int level) {
 		levelCourant = level;
 		initLevels();
