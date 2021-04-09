@@ -2,7 +2,7 @@ package logic;
 
 public abstract class Entity extends Thread {
 
-    // Attributs de class
+    // Attributs
     private int posx, posy;
     private char symbol;
 
