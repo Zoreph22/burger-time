@@ -12,7 +12,6 @@ package client;
 // This module is provided "as is", without warranties of any kind.
 //
 // Home page: http://www.source-code.biz/snippets/java/RawConsoleInput
-
 import java.io.InputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -47,14 +46,29 @@ public class RawConsoleInput {
     private static boolean consoleModeAltered;
 
     /**
+     * Clear the console
+     */
+    public static void clear() {
+        try {
+            if (System.getProperty("os.name").contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                Runtime.getRuntime().exec("clear");
+            }
+        } catch (IOException | InterruptedException ex) {
+            ex.printStackTrace(System.err);
+        }
+    }
+
+    /**
      * Reads a character from the console without echo.
      *
-     * @param wait <code>true</code> to wait until an input character is available,
-     *             <code>false</code> to return immediately if no character is
-     *             available.
+     * @param wait <code>true</code> to wait until an input character is
+     * available, <code>false</code> to return immediately if no character is
+     * available.
      * @return -2 if <code>wait</code> is <code>false</code> and no character is
-     *         available. -1 on EOF. Otherwise an Unicode character code within the
-     *         range 0 to 0xFFFF.
+     * available. -1 on EOF. Otherwise an Unicode character code within the
+     * range 0 to 0xFFFF.
      */
     public static int read(boolean wait) throws IOException {
         if (isWindows) {
@@ -71,8 +85,8 @@ public class RawConsoleInput {
      * On Windows this method re-enables Ctrl-C processing.
      *
      * <p>
-     * On Unix this method switches the console back to echo mode. read() leaves the
-     * console in non-echo mode.
+     * On Unix this method switches the console back to echo mode. read() leaves
+     * the console in non-echo mode.
      */
     public static void resetConsoleMode() throws IOException {
         if (isWindows) {
@@ -99,9 +113,7 @@ public class RawConsoleInput {
 
     // --- Windows
     // ------------------------------------------------------------------
-
     // The Windows version uses _kbhit() and _getwch() from msvcrt.dll.
-
     private static Msvcrt msvcrt;
     private static Kernel32 kernel32;
     private static Pointer consoleHandle;
@@ -194,6 +206,7 @@ public class RawConsoleInput {
     }
 
     private static interface Msvcrt extends Library {
+
         int _kbhit();
 
         int _getwch();
@@ -202,6 +215,7 @@ public class RawConsoleInput {
     }
 
     private static class Kernel32Defs {
+
         static final int STD_INPUT_HANDLE = -10;
         static final long INVALID_HANDLE_VALUE = (Native.POINTER_SIZE == 8) ? -1 : 0xFFFFFFFFL;
         static final int ENABLE_PROCESSED_INPUT = 0x0001;
@@ -211,6 +225,7 @@ public class RawConsoleInput {
     }
 
     private static interface Kernel32 extends Library {
+
         int GetConsoleMode(Pointer hConsoleHandle, IntByReference lpMode);
 
         int SetConsoleMode(Pointer hConsoleHandle, int dwMode);
@@ -220,13 +235,11 @@ public class RawConsoleInput {
 
     // --- Unix
     // ---------------------------------------------------------------------
-
     // The Unix version uses tcsetattr() to switch the console to non-canonical
     // mode,
     // System.in.available() to check whether data is available and System.in.read()
     // to read bytes from the console.
     // A CharsetDecoder is used to convert bytes to characters.
-
     private static final int stdinFd = 0;
     private static Libc libc;
     private static CharsetDecoder charsetDecoder;
@@ -338,6 +351,7 @@ public class RawConsoleInput {
     }
 
     protected static class Termios extends Structure { // termios.h
+
         public int c_iflag;
         public int c_oflag;
         public int c_cflag;
@@ -364,6 +378,7 @@ public class RawConsoleInput {
     }
 
     private static class LibcDefs {
+
         // termios.h
         static final int ISIG = 0000001;
         static final int ICANON = 0000002;
@@ -373,6 +388,7 @@ public class RawConsoleInput {
     }
 
     private static interface Libc extends Library {
+
         // termios.h
         int tcgetattr(int fd, Termios termios) throws LastErrorException;
 

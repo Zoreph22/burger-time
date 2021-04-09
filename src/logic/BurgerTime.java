@@ -1,25 +1,26 @@
 package logic;
 
-import java.io.IOException;
-
-import client.RawConsoleInput;
+import client.ClientEnvoyer;
+import client.ClientRecevoir;
+import client.ClientSocket;
+import menus.MenuDemarrage;
+import menus.MenuLobby;
 
 public class BurgerTime {
+
     public static void main(String[] args) {
-        Game game = new Game();
+        //Game game = new Game();
 
-        // 27 = Echap Code qui permet de ne plus se soucier de la touche entrer.
-        while (true) {
-            try {
-                int x = RawConsoleInput.read(true);
-                System.out.println(x);
-                if (x == 27) {
-                    System.exit(0);
-                }
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+        int choixDemarrage = new MenuDemarrage().getChoix();
 
+        switch (choixDemarrage) {
+            case 1:
+                break;
+            case 2:
+                ClientSocket socket = new MenuLobby().startClient();
+                ClientEnvoyer clientE = new ClientEnvoyer(socket);
+                ClientRecevoir clientR = new ClientRecevoir(socket);
+                break;
         }
     }
 
