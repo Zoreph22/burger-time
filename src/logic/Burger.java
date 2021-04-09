@@ -2,15 +2,23 @@ package logic;
 
 public class Burger {
 
+    // Attributs
     private Ingredient[] ingredients;
 
+    // Constructeurs
     public Burger(int posY) {
         initBurger(posY);
     }
 
+    // Get
     public Ingredient getIngredient(int id) 
     {
         return this.ingredients[id];
+    }
+
+    // Set
+    public void setIngredient(int id, Ingredient ingredient){
+        this.ingredients[id] = ingredient;
     }
 
     private void initBurger(int posY) {
