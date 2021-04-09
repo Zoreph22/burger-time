@@ -33,7 +33,7 @@ public class ClientSocket {
      * @throws IOException
      */
     public void connecter(String ip) throws IOException {
-        this.socket = new Socket(ip, 25000);
+        this.socket = new Socket(ip, 25565);
         this.initFlux();
     }
 

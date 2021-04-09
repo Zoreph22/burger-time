@@ -24,8 +24,11 @@ public class BurgerTime {
                 ClientSocket socketC = new MenuLobby().startClient();
                 ClientEnvoyer clientE = new ClientEnvoyer(socketC);
                 ClientRecevoir clientR = new ClientRecevoir(socketC);
+                clientE.start();
+                clientR.start();
                 break;
         }
+        
     }
 
 }
