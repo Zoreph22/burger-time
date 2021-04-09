@@ -31,3 +31,5 @@ hs_err_pid*
 
 # Local History for Visual Studio Code
 .history/
+/build/
+/dist/
