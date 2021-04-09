@@ -1,0 +1,11 @@
+{
+    "java.dependency.packagePresentation": "flat",
+    "java.project.referencedLibraries": {
+        "include": [
+            "lib/**/*.jar"
+        ],
+        "exclude": [
+            "c:\\Users\\cleme\\Downloads\\jna.jar"
+        ]
+    }
+}
