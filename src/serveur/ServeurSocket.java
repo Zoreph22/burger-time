@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Serveur {
+public class ServeurSocket {
 
     /**
      * Socket du serveur
@@ -125,7 +125,7 @@ public class Serveur {
             } catch (IOException ex) {
 
                 this.error("Erreur de communication.");
-                Logger.getLogger(Serveur.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ServeurSocket.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
