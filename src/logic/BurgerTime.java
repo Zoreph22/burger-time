@@ -27,8 +27,6 @@ public class BurgerTime {
                 clientE.start();
                 clientR.start();
                 break;
-        }
-        while(true);
+        }  
     }
-
 }

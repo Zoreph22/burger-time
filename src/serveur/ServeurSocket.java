@@ -20,7 +20,7 @@ public class ServeurSocket {
     /**
      * Socket des clients connectés
      */
-    private ArrayList<Socket> clientSockets;
+    private ArrayList<Socket> clientSockets = new ArrayList<>();
 
     /**
      * Démarrer le socket serveur et écouter les demandes de connexion
@@ -28,7 +28,7 @@ public class ServeurSocket {
      * @throws IOException
      */
     public void start() throws IOException {
-        this.serverSocket = new ServerSocket(25000);
+        this.serverSocket = new ServerSocket(25565);
 
         // On écoute les demandes de connexion de la part des clients
         while (true) {
@@ -124,7 +124,7 @@ public class ServeurSocket {
                 this.clientSocket.close();
             } catch (IOException ex) {
 
-                this.error("Erreur de communication.");
+                this.error("Erreur de communication");
                 Logger.getLogger(ServeurSocket.class.getName()).log(Level.SEVERE, null, ex);
             }
 
