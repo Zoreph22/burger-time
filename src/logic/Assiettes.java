@@ -1,11 +1,11 @@
 package logic;
 
-public class Assiette {
+public class Assiettes {
 
     private Burger[] assiettes;
     private int taille;
 
-    public Assiette(int taille) {
+    public Assiettes(int taille) {
         this.taille = taille;
         initAssiettes();
     }

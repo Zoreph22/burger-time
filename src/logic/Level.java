@@ -10,7 +10,7 @@ public class Level {
 
 	// private Player player;
 	// private Enemy enemy;
-	private Assiette assiette;
+	private Assiettes assiette;
 
 	public Level(int level) {
 		levelCourant = level;

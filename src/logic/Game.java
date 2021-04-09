@@ -2,7 +2,7 @@ package logic;
 
 public class Game {
     Level level = new Level(0);
-    Assiette assiette = new Assiette(4);
+    Assiettes assiette = new Assiettes(4);
     // Player player = new Player(0,0);
 
     public Game() {
@@ -10,13 +10,4 @@ public class Game {
         assiette.print();
 
     }
-
-    private void initGame() {
-
-    }
-
-    private void runGame() {
-
-    }
-
 }
