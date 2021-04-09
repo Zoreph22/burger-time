@@ -10,7 +10,7 @@ public class Level {
 
 	// private Player player;
 	// private Enemy enemy;
-	private Assiette assiette;
+	private Assiettes assiette;
 
 	public Level(int level) {
 		levelCourant = level;
@@ -34,7 +34,7 @@ public class Level {
 	}
 
 	public void print() {
-		for (int i = 0; i < heightLenghtLevel()+3; i++) {
+		for (int i = 0; i < heightLenghtLevel() + 3; i++) {
 			System.out.print("▄");
 		}
 		System.out.println();
@@ -47,7 +47,7 @@ public class Level {
 			System.out.print("▐");
 			System.out.println();
 		}
-		for (int i = 0; i < heightLenghtLevel()+3; i++) {
+		for (int i = 0; i < heightLenghtLevel() + 3; i++) {
 			System.out.print("▀");
 		}
 		System.out.println();
