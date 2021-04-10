@@ -3,13 +3,13 @@ package logic;
 public abstract class Entity extends Thread {
 
     // Attributs
-    private int posx, posy;
-    private char symbol;
+    private Position pos;
+    private String symbol;
 
     // Constructeurs
     public Entity(int posx, int posy) {
-        setPosX(posx);
-        setPosY(posy);
+        pos.setPosX(posx);
+        pos.setPosY(posy);
     }
 
     // Méthode run de Entity extends Thread
@@ -18,58 +18,42 @@ public abstract class Entity extends Thread {
     }
 
     // Get Attributs
-    public int getPosX() {
-        return this.posx;
-    }
-
-    public int getPosY() {
-        return this.posy;
-    }
-
-    public char getSymbol() {
+    public String getSymbol() {
         return this.symbol;
     }
 
     // Set Attributs
-    public void setPosX(int posx) {
-        this.posx = posx;
-    }
-
-    public void setPosY(int posy) {
-        this.posy = posy;
-    }
-
-    public void setSymbol(char symbol) {
+    public void setSymbol(String symbol) {
         this.symbol = symbol;
     }
 
     // Méthode de déplacement
     public void up() {
-        setPosY(this.getPosY()+1);
+        pos.setPosY(pos.getPosY() + 1);
     }
 
     public void down() {
-        setPosY(this.getPosY()-1);
+        pos.setPosY(pos.getPosY() - 1);
     }
 
     public void right() {
-        setPosY(this.getPosX()+1);
+        pos.setPosY(pos.getPosX() + 1);
     }
 
     public void left() {
-        setPosY(this.getPosX()-1);
+        pos.setPosY(pos.getPosX() - 1);
     }
 
-    //Collision Ennemy
-    public boolean isColliding(int posx, int posy){
-        if(this.getPosX() == posx && this.getPosY() == posy){
+    // Collision Ennemy
+    public boolean isColliding(int posx, int posy) {
+        if (pos.getPosX() == posx && pos.getPosY() == posy) {
             return true;
         }
         return false;
-    } 
+    }
 
-    public Entity entityCollision(Entity entity){
-        if(isColliding(entity.getPosX(), entity.getPosY())){
+    public Entity entityCollision(Entity entity) {
+        if (isColliding(entity.pos.getPosX(), entity.pos.getPosY())) {
             return entity;
         }
         return null;

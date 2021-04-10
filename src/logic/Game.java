@@ -6,6 +6,6 @@ public class Game {
 
     public Game() {
         level.print();
-        level.assiette.print();
+        level.getAssiettes().print();
     }
 }
