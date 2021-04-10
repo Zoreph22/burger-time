@@ -8,20 +8,24 @@
             "type": "java",
             "name": "Launch Current File",
             "request": "launch",
-            "mainClass": "${file}"
+            "mainClass": "${file}",
+            "vmArgs": "--enable-preview"
         },
         {
             "type": "java",
             "name": "Launch BurgerTime",
             "request": "launch",
             "mainClass": "logic.BurgerTime",
-            "projectName": "Info4B-BurgerTime_eab62f0f"
+            "projectName": "Info4B-BurgerTime_eab62f0f",
+            "vmArgs": "--enable-preview"
+            
         },
         {
             "type": "java",
             "name": "Launch TestSocket_CLIENT",
             "request": "launch",
-            "mainClass": "testsocket_client.TestSocket_CLIENT"
+            "mainClass": "testsocket_client.TestSocket_CLIENT",
+            "vmArgs": "--enable-preview"
         }
     ]
 }
