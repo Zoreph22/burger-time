@@ -1,43 +1,48 @@
 package serveur;
 
-import java.io.BufferedReader;
+import client.RawConsoleInput;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ServeurSocket {
+/**
+ * Classe établissant la connexion avec les clients
+ */
+public class ServeurSocket extends Thread {
 
-    /**
-     * Socket du serveur
-     */
+    // Le thread est en cours d'exécution ?
+    private boolean running;
+    // Socket du serveur
     private ServerSocket serverSocket;
+    // Gestionnaire des clients connectés
+    private ArrayList<ClientHandler> clients = new ArrayList<>();
+
+    public ServeurSocket() {
+        this.demarrer();
+    }
 
     /**
-     * Socket des clients connectés
+     * Démarrer le serveur
      */
-    private ArrayList<Socket> clientSockets = new ArrayList<>();
+    private void demarrer() {
+        System.out.println("Démarrage du serveur...");
+        RawConsoleInput.clear();
 
-    /**
-     * Démarrer le socket serveur et écouter les demandes de connexion
-     *
-     * @throws IOException
-     */
-    public void start() throws IOException {
-        this.serverSocket = new ServerSocket(25565);
+        try {
+            this.serverSocket = new ServerSocket(25565);
 
-        // On écoute les demandes de connexion de la part des clients
-        while (true) {
-            // Établir la connexion avec le client
-            Socket socket = serverSocket.accept();
-            this.clientSockets.add(socket);
+            // Hook permettant d'éteindre le serveur à la fermeture du processus
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                this.stopServeur();
+            }));
 
-            // Démarrer le thread qui gère le client
-            new ClientHandler(socket).start();
+            System.out.println("Serveur démarré.");
+        } catch (IOException ex) {
+            System.err.println("Erreur de démarrage du serveur : " + ex.getMessage() + ".");
         }
     }
 
@@ -46,89 +51,63 @@ public class ServeurSocket {
      *
      * @throws IOException
      */
-    public void stop() throws IOException {
-        for (Socket socket : this.clientSockets) {
-            socket.close();
+    public void stopServeur() {
+        this.running = false;
+        System.out.println("Fermeture du serveur...");
+
+        for (ClientHandler client : this.clients) {
+            this.broadcast("STOP_CONNECTION");
+            client.deconnecter();
         }
 
-        this.serverSocket.close();
+        try {
+            this.serverSocket.close();
+        } catch (IOException ex) {
+            Logger.getLogger(ServeurSocket.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        System.out.println("Serveur fermé.");
+    }
+
+    @Override
+    public void run() {
+        this.running = true;
+        this.ecouterConnexions();
     }
 
     /**
-     * Classe qui gère la communication avec un client connecté
+     * Écouter les demandes de connexion de la part des clients
+     *
+     * @throws IOException
      */
-    private static class ClientHandler extends Thread {
+    public void ecouterConnexions() {
+        System.out.println("En attente de demandes de connexion...");
 
-        /**
-         * Socket du client
-         */
-        private Socket clientSocket;
-
-        /**
-         * Flux de réception des messages
-         */
-        private BufferedReader fluxEntrant;
-
-        /**
-         * Flux de transmission des messages
-         */
-        private PrintWriter fluxSortant;
-
-        /**
-         * @param socket Socket du client connecté
-         */
-        public ClientHandler(Socket socket) {
-            this.clientSocket = socket;
-        }
-
-        /**
-         * Logger un message dans la console serveur
-         *
-         * @param msg Message log
-         */
-        public void log(String msg) {
-            System.out.println("[IP : " + this.clientSocket.getInetAddress() + "] " + msg + ".");
-        }
-
-        /**
-         * Logger un message d'erreur dans la console serveur
-         *
-         * @param msg Message erreur
-         */
-        public void error(String msg) {
-            System.err.println("[IP : " + this.clientSocket.getInetAddress() + "] " + msg + ".");
-        }
-
-        @Override
-        public void run() {
-            this.log("Connexion effectuée");
+        // On écoute les demandes de connexion de la part des clients
+        while (this.running) {
+            // Établir la connexion avec le client
+            Socket socket;
 
             try {
-                this.fluxEntrant = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));
-                this.fluxSortant = new PrintWriter(this.clientSocket.getOutputStream(), true);
-
-                String msgRecu;
-                while ((msgRecu = this.fluxEntrant.readLine()) != null) {
-                    System.out.println("<< " + msgRecu);
-
-                    if (msgRecu.equals(".")) {
-                        this.fluxSortant.println("bye");
-                        break;
-                    }
-
-                    this.fluxSortant.println(msgRecu);
-                }
-
-                this.fluxEntrant.close();
-                this.fluxSortant.close();
-                this.clientSocket.close();
+                ClientHandler handler = new ClientHandler(serverSocket.accept());
+                this.clients.add(handler);
+                handler.start();
+            } catch (SocketException ex) {
             } catch (IOException ex) {
-
-                this.error("Erreur de communication");
-                Logger.getLogger(ServeurSocket.class.getName()).log(Level.SEVERE, null, ex);
+                System.err.println("Erreur de connexion avec un client : " + ex.getMessage() + ".");
+                ex.printStackTrace(System.err);
             }
-
         }
+    }
 
+    /**
+     * Envoyer un message à tous les clients
+     *
+     * @param msg Message à envoyer
+     */
+    public void broadcast(String msg) {
+        for (ClientHandler client : this.clients) {
+            client.envoyer(msg);
+        }
     }
 }
