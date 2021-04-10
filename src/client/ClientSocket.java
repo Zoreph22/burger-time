@@ -7,27 +7,19 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 /**
- * Classe établissant la communication avec le serveur
+ * Classe établissant la connexion avec la serveur
  */
 public class ClientSocket {
 
-    /**
-     * Socket du serveur
-     */
+    // Socket du serveur
     private Socket socket;
-
-    /**
-     * Flux de réception des messages
-     */
+    // Flux de réception des messages
     private BufferedReader fluxEntrant;
-
-    /**
-     * Flux de transmission des messages
-     */
+    // Flux de transmission des messages
     private PrintWriter fluxSortant;
 
     /**
-     * Connexion au serveur sur le port 25000
+     * Connexion au serveur
      *
      * @param ip IP du serveur
      * @throws IOException
@@ -35,6 +27,31 @@ public class ClientSocket {
     public void connecter(String ip) throws IOException {
         this.socket = new Socket(ip, 25565);
         this.initFlux();
+    }
+
+    /**
+     * Déconnexion du serveur
+     */
+    public void deconnecter() {
+        System.out.println("Déconnexion du serveur...");
+
+        try {
+            this.socket.close();
+        } catch (IOException ex) {
+            System.err.println("Erreur de déconnexion du serveur : " + ex.getMessage() + ".");
+        }
+
+        System.out.println("Déconnecté du serveur.");
+        System.out.println("Appuyez sur une touche pour quitter le jeu.");
+    }
+
+    /**
+     * Le socket est-il fermé ?
+     *
+     * @return true si socket fermé
+     */
+    public boolean isClosed() {
+        return this.socket.isClosed();
     }
 
     /**
@@ -53,7 +70,7 @@ public class ClientSocket {
     /**
      * Envoyer un message au serveur
      *
-     * @param message le message à envoyer
+     * @param message Le message à envoyer
      */
     public void envoyer(String message) {
         System.out.println(">> " + message);

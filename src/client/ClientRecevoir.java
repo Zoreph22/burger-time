@@ -10,13 +10,12 @@ import java.util.logging.Logger;
  */
 public class ClientRecevoir extends Thread {
 
-    private String msgRecu;
-    private boolean enCommunication;
-
-    /**
-     * Socket du serveur
-     */
+    // Socket du serveur
     private ClientSocket socket;
+    // Message reçu du serveur
+    private String msgRecu;
+    // La communication avec le serveur est active ?
+    private boolean enCommunication;
 
     /**
      * @param socket Socket du serveur
@@ -27,13 +26,12 @@ public class ClientRecevoir extends Thread {
 
     @Override
     public void run() {
+        this.enCommunication = true;
         this.boucleCommunication();
     }
 
     public void boucleCommunication() {
-        this.enCommunication = true;
-
-        while (this.enCommunication) {
+        while (this.enCommunication && !this.socket.isClosed()) {
             // Réception d'un message du serveur
             try {
                 this.msgRecu = this.socket.recevoir();
@@ -47,6 +45,13 @@ public class ClientRecevoir extends Thread {
     }
 
     public void reagirAuMessageRecu() {
-        // en fonction du message, on exécute un code spécifique
+        switch (this.msgRecu) {
+            case "STOP_CONNECTION":
+                this.enCommunication = false;
+                this.socket.deconnecter();
+                break;
+            default:
+                System.err.println("Message reçu inconnu : " + this.msgRecu + ".");
+        }
     }
 }

@@ -3,16 +3,15 @@ package client;
 import java.io.IOException;
 
 /**
- *
+ * Classe qui gère la capture des touches du clavier, et envoie les actions
+ * correspondantes au serveur
  */
 public class ClientEnvoyer extends Thread {
-    
-    private String msgAEnvoyer;
 
-    /**
-     * Socket du serveur
-     */
+    // Socket du serveur
     private ClientSocket socket;
+    // Message a envoyer au serveur
+    private String msgAEnvoyer;
 
     /**
      * @param socket Socket du serveur
@@ -20,7 +19,7 @@ public class ClientEnvoyer extends Thread {
     public ClientEnvoyer(ClientSocket socket) {
         this.socket = socket;
     }
-    
+
     @Override
     public void run() {
         this.boucleClavier();
@@ -30,17 +29,15 @@ public class ClientEnvoyer extends Thread {
      * Capturer les inputs clavier
      */
     public void boucleClavier() {
-        // 27 = Echap Code qui permet de ne plus se soucier de la touche entrer.
-        while (true) {
+        while (!this.socket.isClosed()) {
             try {
                 int x = RawConsoleInput.read(true);
-                
-                System.out.println(x);
-                
+
+                // Touche Échap pour quitter le jeu
                 if (x == 27) {
                     System.exit(0);
                 }
-                
+
                 this.socket.envoyer("Touche appuyée : " + x);
             } catch (IOException ex) {
                 ex.printStackTrace(System.err);
