@@ -27,9 +27,9 @@ public class Ingredient extends Thread {
 
     // Init
     public void initMorceau(int i, int j) {
-        morceau1 = new Morceau(i,j-1,this);
-        morceau2 = new Morceau(i,j,this); 
-        morceau3 = new Morceau(i,j+1,this);
+        morceau1 = new Morceau(i, j - 1, this);
+        morceau2 = new Morceau(i, j, this);
+        morceau3 = new Morceau(i, j + 1, this);
     }
 
     public void placerDansCellule(Cellule[][] cellules) {
@@ -62,14 +62,15 @@ public class Ingredient extends Thread {
 
     // toString
     public String toString() {
-        if (type.equals("P1") || type.equals("P2"))
+        if (type.equals("P1") || type.equals("P2")) {
             return "P";
-        else if (type.equals("S"))
+        } else if (type.equals("S")) {
             return "S";
-        else if (type.equals("V"))
+        } else if (type.equals("V")) {
             return "V";
-        else
+        } else {
             return null;
+        }
     }
 
 }

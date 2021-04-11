@@ -4,6 +4,7 @@ import messages.Message;
 import serveur.ServeurSocket;
 import serveur.phases.PhaseLobby;
 import serveur.phases.PhasePartie;
+import utils.RawConsoleInput;
 
 /**
  * Message indiquant qu'un joueur est prêt pour lancer la partie dans le lobby
@@ -28,10 +29,13 @@ public class MessagePret extends Message {
      * Démarrer la phase partie, si tous les joueurs sont prêts
      */
     private void demarrerPartie() {
+        RawConsoleInput.println("Démarrage de la partie...");
+        ServeurSocket.getInstance().setAcceptCon(false);
         PhasePartie partie = new PhasePartie();
         partie.setLevel(0);
         ServeurSocket.getInstance().getGame().setPhaseCourante(partie);
         ServeurSocket.getInstance().broadcast("SERVER_LOAD_LEVEL|" + 0);
+        RawConsoleInput.println("Partie démarrée.");
     }
 
 }

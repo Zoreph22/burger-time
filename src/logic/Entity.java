@@ -9,8 +9,13 @@ public abstract class Entity extends Thread {
     private Level level;
 
     // Constructeurs
+<<<<<<< Updated upstream
     public Entity(int posi, int posj, Cellule[][] cellules, Level level) {
         pos = new Position(posi,posj);
+=======
+    public Entity(int posi, int posj, Cellule[][] cellules) {
+        pos = new Position(posi, posj);
+>>>>>>> Stashed changes
         this.cellules = cellules;
         this.level = level;
     }
@@ -25,12 +30,17 @@ public abstract class Entity extends Thread {
         return this.symbol;
     }
 
-    public Cellule[][] getCellules(){
+    public Cellule[][] getCellules() {
         return this.cellules;
     }
 
+<<<<<<< Updated upstream
     public Level getLevel(){
         return this.level;
+=======
+    public Position getPosition() {
+        return thi
+>>>>>>> Stashed changes
     }
 
     // Set Attributs
@@ -90,7 +100,7 @@ public abstract class Entity extends Thread {
         }
     }
 
-    // Collision Ennemy
+    // Test collision
     public boolean isColliding(int posi, int posj) {
         if (pos.getPosi() == posi && pos.getPosj() == posj) {
             return true;

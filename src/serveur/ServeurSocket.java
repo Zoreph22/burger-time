@@ -21,6 +21,8 @@ public class ServeurSocket extends Thread {
 
     // Le thread est en cours d'exécution ?
     private boolean running;
+    // Le serveur doit accepter les demandes de connexion ?
+    private boolean isAccepteCon;
     // Socket du serveur
     private ServerSocket serverSocket;
     // Gestionnaire des clients connectés (clé = identifiant du client)
@@ -76,6 +78,7 @@ public class ServeurSocket extends Thread {
      */
     public void stopServeur() {
         this.running = false;
+        this.isAccepteCon = false;
         RawConsoleInput.println("Fermeture du serveur...");
 
         for (ClientHandler client : this.clients.values()) {
@@ -115,19 +118,26 @@ public class ServeurSocket extends Thread {
      * @throws IOException
      */
     public void ecouterConnexions() {
+        this.isAccepteCon = true;
         this.game.setPhaseCourante(new PhaseLobby());
         RawConsoleInput.println("En attente de demandes de connexion...");
 
         // On écoute les demandes de connexion de la part des clients
-        while (this.running) {
+        while (this.isAccepteCon) {
             // Établir la connexion avec le client
             Socket socket;
 
             try {
-                ClientHandler handler = new ClientHandler(serverSocket.accept(), this.nbClients + 1);
-                this.clients.put(handler.getClientId(), handler);
-                this.nbClients++;
-                handler.start();
+                socket = serverSocket.accept();
+
+                if (this.isAccepteCon) {
+                    ClientHandler handler = new ClientHandler(socket, this.nbClients + 1);
+                    this.clients.put(handler.getClientId(), handler);
+                    this.nbClients++;
+                    handler.start();
+                } else {
+                    socket.close();
+                }
             } catch (SocketException ex) {
             } catch (IOException ex) {
                 System.err.println("Erreur de connexion avec un client : " + ex.getMessage() + ".");
@@ -149,5 +159,14 @@ public class ServeurSocket extends Thread {
 
     public Game getGame() {
         return this.game;
+    }
+
+    /**
+     * Modifier si le serveur accepte les demandes de connexion
+     *
+     * @param accept Accepter les demandes de connexion ?
+     */
+    public void setAcceptCon(boolean accept) {
+        this.isAccepteCon = accept;
     }
 }

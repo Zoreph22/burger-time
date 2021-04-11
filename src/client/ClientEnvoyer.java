@@ -50,6 +50,11 @@ public class ClientEnvoyer extends Thread {
         Game game = ClientSocket.getInstance().getGame();
         Phase phase = game.getPhaseCourante();
 
+        // Ne rien si on est dans aucune phase
+        if (phase == null) {
+            return;
+        }
+        
         // Quitter le jeu à l'appuie de la touche Échap
         if (this.codeToucheAppuyee == KeyEvent.VK_ESCAPE) {
             this.socket.deconnecter();
