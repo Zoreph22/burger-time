@@ -1,44 +1,53 @@
 package logic;
 
-public class Assiettes 
-{
+public class Assiettes {
 
+    // Attributs
     private Burger[] burgers;
-    private int taille;
+    private int size;
 
-    public Assiettes(int taille) 
-    {
-        initAssiettes(taille);
+    // Constructeurs
+    public Assiettes(int size) {        
+        setSize(size);
+        burgers = new Burger[this.size];
+        //initBurger();
+    }
+    public Assiettes(int size, Burger[] burgers){
+        setSize(size);
+        this.burgers = burgers;
     }
 
-    public void setTaille(int taille) {this.taille = taille;}
-    public int getTaille() {return this.taille;}
-
-    public Burger getAssiette(int id) {return this.burgers[id];}
-
-    public void setAssiette(int id, Burger burger) {this.burgers[id] = burger;}
-
-    public void initAssiettes(int taille) 
-    {
-        setTaille(taille);
-        burgers = new Burger[this.taille];
-        for(int i = 0; i < taille; i++)
-            burgers[i] = new Burger(3*i+i+1);
+    // Get
+    public int getSize() {
+        return this.size;
+    }    
+    public Burger getAssiette(int id) {
+        return this.burgers[id];
     }
 
-    public void print() 
-    {
-        System.out.println("");
-        for(int i = 0; i < 4; i++)
-        {
-            for(int j = 0; j < taille; j++)
-                if(burgers[j].getIngredient(i).getIsFall())
-                    System.out.print(" " + burgers[j].getIngredient(i).toString() + " ");
-            
-            System.out.print("\n");
+
+    // Set 
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public void setAssiette(int id, Burger burger) {
+        this.burgers[id] = burger;
+    }
+
+    // Méthode init 
+    public void initBurger() {
+        for(int i=0;i<this.size;i++){
+            // burgers[i] = new Burger();
         }
-        for (int i = 0; i < this.taille; i++)
-            System.out.print("└───┘");
     }
 
+    // Print
+    public void print() {
+        System.out.println("");
+        for (int i = 0; i < this.size; i++)
+            System.out.print("└───┘");
+
+        System.out.println("");
+    }
 }

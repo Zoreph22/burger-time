@@ -1,15 +1,12 @@
 package logic;
 
-import java.io.*;
-import java.awt.*;
-
 public class Player extends Entity {
 
     // Attributs
 
     // Constructeurs
-    public Player(int posx, int posy, char symbol) {
-        super(posx, posx);
+    public Player(int posi, int posj, String symbol, Cellule[][] cellules) {
+        super(posi, posj, cellules);
         setSymbol(symbol);
     }
 
@@ -19,20 +16,16 @@ public class Player extends Entity {
     }
 
     //Collision Ingredient
-    /*public Ingredient ingredientCollision(Ingredient ingredient){
-        if(isColliding(ingredient.getPosX(), ingredient.getPosY());){
+    public Ingredient ingredientCollision(Ingredient ingredient){
+        if(isColliding(ingredient.getMorceau1().getPos().getPosi(), ingredient.getMorceau1().getPos().getPosj())){
+            return ingredient;
+        }
+        if(isColliding(ingredient.getMorceau2().getPos().getPosi(), ingredient.getMorceau1().getPos().getPosj())){
+            return ingredient;
+        }
+        if(isColliding(ingredient.getMorceau3().getPos().getPosi(), ingredient.getMorceau1().getPos().getPosj())){
             return ingredient;
         }
         return null;
-    }*/
-
-
-    
-
-    /*
-     * public int playerMove() { int tmp = -1; try { tmp = System.in.read(); } catch
-     * (IOException e) { System.out.println("Fait un effort"); }
-     * 
-     * return tmp; }
-     */
+    }
 }

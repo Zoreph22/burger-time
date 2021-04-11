@@ -3,13 +3,14 @@ package logic;
 public abstract class Entity extends Thread {
 
     // Attributs
-    private int posx, posy;
-    private char symbol;
+    private Position pos;
+    private String symbol;
+    private Cellule[][] cellules;
 
     // Constructeurs
-    public Entity(int posx, int posy) {
-        setPosX(posx);
-        setPosY(posy);
+    public Entity(int posi, int posj, Cellule[][] cellules) {
+        pos = new Position(posi,posj);
+        this.cellules = cellules;
     }
 
     // Méthode run de Entity extends Thread
@@ -18,58 +19,54 @@ public abstract class Entity extends Thread {
     }
 
     // Get Attributs
-    public int getPosX() {
-        return this.posx;
-    }
-
-    public int getPosY() {
-        return this.posy;
-    }
-
-    public char getSymbol() {
+    public String getSymbol() {
         return this.symbol;
     }
 
+    public Cellule[][] getCellules(){
+        return this.cellules;
+    }
+
     // Set Attributs
-    public void setPosX(int posx) {
-        this.posx = posx;
-    }
-
-    public void setPosY(int posy) {
-        this.posy = posy;
-    }
-
-    public void setSymbol(char symbol) {
+    public void setSymbol(String symbol) {
         this.symbol = symbol;
     }
 
     // Méthode de déplacement
-    public void up() {
-        setPosY(this.getPosY()+1);
+    public void up(Cellule[][] cellules) {
+        cellules[pos.getPosi()][pos.getPosj()].setEntity(null);
+        pos.setPosi(pos.getPosi() - 1);
+        cellules[pos.getPosi()][pos.getPosj()].setEntity(this);
     }
 
-    public void down() {
-        setPosY(this.getPosY()-1);
+    public void down(Cellule[][] cellules) {
+        cellules[pos.getPosi()][pos.getPosj()].setEntity(null);
+        pos.setPosi(pos.getPosi() + 1);
+        cellules[pos.getPosi()][pos.getPosj()].setEntity(this);
     }
 
-    public void right() {
-        setPosY(this.getPosX()+1);
+    public void right(Cellule[][] cellules) {
+        cellules[pos.getPosi()][pos.getPosj()].setEntity(null);
+        pos.setPosj(pos.getPosj() + 1);
+        cellules[pos.getPosi()][pos.getPosj()].setEntity(this);
     }
 
-    public void left() {
-        setPosY(this.getPosX()-1);
+    public void left(Cellule[][] cellules) {
+        cellules[pos.getPosi()][pos.getPosj()].setEntity(null);
+        pos.setPosj(pos.getPosj() - 1);
+        cellules[pos.getPosi()][pos.getPosj()].setEntity(this);
     }
 
-    //Collision Ennemy
-    public boolean isColliding(int posx, int posy){
-        if(this.getPosX() == posx && this.getPosY() == posy){
+    // Collision Ennemy
+    public boolean isColliding(int posi, int posj) {
+        if (pos.getPosi() == posi && pos.getPosj() == posj) {
             return true;
         }
         return false;
-    } 
+    }
 
-    public Entity entityCollision(Entity entity){
-        if(isColliding(entity.getPosX(), entity.getPosY())){
+    public Entity entityCollision(Entity entity) {
+        if (isColliding(entity.pos.getPosi(), entity.pos.getPosj())) {
             return entity;
         }
         return null;
