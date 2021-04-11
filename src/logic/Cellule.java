@@ -4,7 +4,7 @@ public class Cellule {
     // Atributs
     private char decor;
     private Entity entity;
-    private Ingredient ingredient;
+    private Morceau morceau;
 
     // Constructeurs 
     public Cellule(char decor) {
@@ -15,8 +15,8 @@ public class Cellule {
         this.entity = entity;
     } 
 
-    public Cellule(Ingredient ingredient){
-        this.ingredient = ingredient;
+    public Cellule(Morceau morceau){
+        this.morceau = morceau;
     } 
 
     // Get
@@ -28,8 +28,8 @@ public class Cellule {
         return this.entity;
     }
 
-    public Ingredient getIngredient() {
-        return this.ingredient;
+    public Morceau getMorceau() {
+        return this.morceau;
     }
 
     // Set
@@ -41,8 +41,8 @@ public class Cellule {
         this.entity = entity;
     }
 
-    public void setIngredient(Ingredient ingredient) {
-        this.ingredient = ingredient;
+    public void setMorceau(Morceau morceau) {
+        this.morceau = morceau;
     }
 
     // toString
@@ -50,8 +50,8 @@ public class Cellule {
         if(this.entity != null){
             return this.entity.getSymbol();
         }
-        if(this.ingredient != null){
-            return this.ingredient.getType();
+        if(this.morceau != null){
+            return this.morceau.toString();
         }
         return String.valueOf(this.decor);
     }

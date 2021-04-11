@@ -5,7 +5,7 @@ public class Level {
 	// Attributs Levels
 	private char levels[][];
 	private int levelCourant;
-	
+
 	// Attributs de symboles
 	private char ladder = '▒';
 	private char air = ' ';
@@ -24,13 +24,13 @@ public class Level {
 	// Constructeurs
 	public Level(int level, int nbassiette) {
 		levelCourant = level;
-		this.assiettes = new Assiettes(nbassiette);
+		players = new Players(1);
 		initLevels();
 	}
 
 	// Get
-	public char getChar(int y, int x) {
-		return levels[y][x];
+	public char getChar(int i, int j) {
+		return levels[i][j];
 	}
 
 	public int getHeight() {
@@ -53,33 +53,19 @@ public class Level {
 		return this.enemys;
 	}
 
+	public Cellule[][] getCellules(){
+		return this.cellules;
+	}
+
 	// Set
-	public void setChar(int y, int x, char c) {
-		levels[y][x] = c;
+	public void setChar(int i, int j, char c) {
+		levels[i][j] = c;
 	}
 
 	// Méthode d'affichage du level.
 	public void print() {
-		// for (int i = 0; i < getHeight() + 3; i++) {
-		// 	System.out.print("▄");
-		// }
-		// System.out.println();
-		// for (int i = 0; i < getHeight(); i++) {
-		// 	System.out.print("▌");
-
-		// 	for (int j = 0; j < getWidth(); j++)
-		// 		System.out.print(getChar(i, j));
-
-		// 	System.out.print("▐");
-		// 	System.out.println();
-		// }
-		// for (int i = 0; i < getHeight() + 3; i++) {
-		// 	System.out.print("▀");
-		// }
-		// System.out.println();
-
-		for (int i = 0; i < getHeight()+2; i++) {
-			for (int j = 0; j < getWidth()+2; j++){
+		for (int i = 0; i < getHeight() + 2; i++) {
+			for (int j = 0; j < getWidth() + 2; j++) {
 				System.out.print(cellules[i][j]);
 			}
 			System.out.println();
@@ -123,27 +109,46 @@ public class Level {
 					{ floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor,
 							floor, floor, floor }, };
 
-			cellules = new Cellule[this.getHeight()+2][this.getWidth()+2];
-			for (int i = 0; i < this.getHeight()+2; i++) {
-				for (int j = 0; j < this.getWidth()+2; j++) {
-					if(i == 0){
+			cellules = new Cellule[this.getHeight() + 2][this.getWidth() + 2];
+			for (int i = 0; i < this.getHeight() + 2; i++) {
+				for (int j = 0; j < this.getWidth() + 2; j++) {
+					if (i == 0) {
 						cellules[i][j] = new Cellule(bord_haut);
 					}
-					if(i < this.getHeight()+1 && j == this.getWidth()+1){
+					if (i > 0 && j == this.getWidth() + 1) {
 						cellules[i][j] = new Cellule(bord_droit);
 					}
-					if(i > 0 && j == 0){
+					if (i > 0 && j == 0) {
 						cellules[i][j] = new Cellule(bord_gauche);
 					}
-					if(i == this.getHeight()+1){
+					if (i == this.getHeight() + 1) {
 						cellules[i][j] = new Cellule(bord_bas);
 					}
-					if((i > 0 && i < this.getHeight()+1) && (j > 0 && j < this.getWidth()+1))
-						cellules[i][j] = new Cellule(levels[i-1][j-1]);
+					if ((i > 0 && i < this.getHeight() + 1) && (j > 0 && j < this.getWidth() + 1))
+						cellules[i][j] = new Cellule(levels[i - 1][j - 1]);
 				}
 			}
-			// cellules[0][this.getWidth()+1] = new Cellule(bord_haut);
-			// cellules[5][5].setEntity(new Player(5, 5, 'C'));
+
+			this.getPlayers().setPlayers(0,new Player(this.getHeight() - 1, 9, "C", cellules));
+			cellules[this.getHeight() - 1][9].setEntity(this.getPlayers().getPlayers(0));
+
+			Ingredient burger1[] = { new Ingredient("P1", 4, 3, cellules), new Ingredient("S", 8, 3, cellules),
+					new Ingredient("V", 13, 3, cellules), new Ingredient("P2", this.getHeight() - 1, 3, cellules) };
+
+			Ingredient burger2[] = { new Ingredient("P1", 6,7, cellules), new Ingredient("S", 9, 7, cellules),
+					new Ingredient("V", 13, 7, cellules), new Ingredient("P2", this.getHeight() - 1, 7, cellules) };
+
+			Ingredient burger3[] = { new Ingredient("P1", 4,11, cellules), new Ingredient("S", 9, 11, cellules),
+					new Ingredient("V", 13, 11, cellules), new Ingredient("P2", this.getHeight() - 1,11, cellules) };
+
+			Ingredient burger4[] = { new Ingredient("P1", 4, 15, cellules), new Ingredient("S", 8, 15, cellules),
+					new Ingredient("V", 13, 15, cellules), new Ingredient("P2", this.getHeight() - 1, 15, cellules) };
+
+			Burger	assiettes[] = {new Burger(burger1), new Burger(burger2), new Burger(burger3), new Burger(burger4)};
+
+			// this.assiettes = new Assiettes(4);
+			this.assiettes = new Assiettes(4, assiettes);
+			// this.getAssiettes().setAssiette(0, new Burger(burger1));
 			break;
 		}
 

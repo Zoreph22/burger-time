@@ -5,8 +5,8 @@ public class Enemy extends Entity {
     // Attributs
 
     // Constructeurs
-    public Enemy(int posx, int posy, String symbol) {
-        super(posx, posx);
+    public Enemy(int posi, int posj, String symbol, Cellule[][] cellules) {
+        super(posi, posj, cellules);
         setSymbol(symbol);
     }
 

@@ -12,8 +12,8 @@ public class Burger {
     public Burger(Ingredient[] ingredients){
         this.ingredients = ingredients;
     }
-    public Burger(int y1, int y2, int y3, int y4, int x2) {
-        initBurger(y1, y2, y3, y4, x2);
+    public Burger(int i, int i1, int i2, int i3, int j) {
+        initBurger(i, i1, i2, i3, j);
     }
 
     // Get
@@ -27,11 +27,11 @@ public class Burger {
         this.ingredients[id] = ingredient;
     }
 
-    private void initBurger(int y1, int y2, int y3, int y4, int x2) {
+    private void initBurger(int i, int i1, int i2, int i3, int j) {
         ingredients = new Ingredient[4];
-        ingredients[0] = new Ingredient("P1", y1, x2);
-        ingredients[1] = new Ingredient("S", y2, x2);
-        ingredients[2] = new Ingredient("V", y3, x2);
-        ingredients[3] = new Ingredient("P2", y4, x2);
+        ingredients[0] = new Ingredient("P1", i, j);
+        ingredients[1] = new Ingredient("S", i1, j);
+        ingredients[2] = new Ingredient("V", i2, j);
+        ingredients[3] = new Ingredient("P2", i3, j);
     }
 }

@@ -3,44 +3,35 @@ package logic;
 public class Position {
 
     // Attributs
-    private int posx, posy;
-    private boolean contact;
+    private int posi, posj;
 
     // Constructeurs
-    public Position(int posx, int posy) {
-        setPosX(posx);
-        setPosY(posy);
+    public Position(int posi, int posj) {
+        setPosi(posi);
+        setPosj(posj);
     }
 
     // Get
-    public int getPosX() {
-        return this.posx;
+    public int getPosi() {
+        return this.posi;
     }
 
-    public int getPosY() {
-        return this.posy;
-    }
-
-    public boolean getContact() {
-        return this.contact;
+    public int getPosj() {
+        return this.posj;
     }
 
     // Set
-    public void setPosX(int posx) {
-        this.posx = posx;
+    public void setPosi(int posi) {
+        this.posi = posi;
     }
 
-    public void setPosY(int posy) {
-        this.posy = posy;
+    public void setPosj(int posj) {
+        this.posj = posj;
     }
 
-    public void setContact(boolean contact) {
-        this.contact = contact;
-    }
-
-    public void setPosXY(int x, int y) {
-        this.posx = x;
-        this.posy = y;
+    public void setPosij(int i, int j) {
+        this.posi = i;
+        this.posj = j;
     }
 
 }

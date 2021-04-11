@@ -3,11 +3,16 @@ package logic;
 public class Players {
 
     // Attributs
-    private Player[] players;
+    private Player[] players;    
+    
+    // Constructeurs
+    public Players(int size) {
+        players = new Player[size];
+    }
 
     // Get
-    public Player[] getPlayers() {
-        return this.players;
+    public Player getPlayers(int id) {
+        return this.players[id];
     }
 
     // Set
@@ -15,7 +20,5 @@ public class Players {
         this.players[id] = player;
     }
 
-    public Players(int size) {
-        players = new Player[size];
-    }
+
 }

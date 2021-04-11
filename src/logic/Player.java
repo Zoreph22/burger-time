@@ -5,8 +5,8 @@ public class Player extends Entity {
     // Attributs
 
     // Constructeurs
-    public Player(int posx, int posy, String symbol) {
-        super(posx, posx);
+    public Player(int posi, int posj, String symbol, Cellule[][] cellules) {
+        super(posi, posj, cellules);
         setSymbol(symbol);
     }
 
@@ -17,13 +17,13 @@ public class Player extends Entity {
 
     //Collision Ingredient
     public Ingredient ingredientCollision(Ingredient ingredient){
-        if(isColliding(ingredient.getPos1().getPosX(), ingredient.getPos1().getPosY())){
+        if(isColliding(ingredient.getMorceau1().getPos().getPosi(), ingredient.getMorceau1().getPos().getPosj())){
             return ingredient;
         }
-        if(isColliding(ingredient.getPos2().getPosX(), ingredient.getPos2().getPosY())){
+        if(isColliding(ingredient.getMorceau2().getPos().getPosi(), ingredient.getMorceau1().getPos().getPosj())){
             return ingredient;
         }
-        if(isColliding(ingredient.getPos3().getPosX(), ingredient.getPos3().getPosY())){
+        if(isColliding(ingredient.getMorceau3().getPos().getPosi(), ingredient.getMorceau1().getPos().getPosj())){
             return ingredient;
         }
         return null;
