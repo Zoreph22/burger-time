@@ -14,21 +14,13 @@ public class Player extends Entity {
 
     }
 
-    public Ingredient ingredientCollision() {          
-        Ingredient ingredient = null;
-    
-        if (isColliding(ingredient.getMorceau1().getPos().getPosi(), ingredient.getMorceau1().getPos().getPosj())) {
-            return ingredient;
-        }
+    @Override
+    public void collisionEffect(Entity entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
-        if (isColliding(ingredient.getMorceau2().getPos().getPosi(), ingredient.getMorceau1().getPos().getPosj())) {
-            return ingredient;
-        }
-
-        if (isColliding(ingredient.getMorceau3().getPos().getPosi(), ingredient.getMorceau1().getPos().getPosj())) {
-            return ingredient;
-        }
-
-        return null;
+    @Override
+    public String getType() {
+        return "Player";
     }
 }

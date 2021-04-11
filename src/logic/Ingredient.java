@@ -7,10 +7,14 @@ public class Ingredient extends Thread {
     private Morceau morceau1;
     private Morceau morceau2;
     private Morceau morceau3;
+    private Burger burger;
+    private Cellule[][] cellules;
 
     // Constructeurs
-    public Ingredient(String type, int i, int j, Cellule[][] cellules) {
+    public Ingredient(String type, int i, int j, Cellule[][] cellules, Burger burger) {
         this.setType(type);
+        this.burger = burger;
+        this.cellules = cellules;
         initMorceau(i, j);
         placerDansCellule(cellules);
     }
@@ -38,6 +42,23 @@ public class Ingredient extends Thread {
         cellules[this.morceau3.getPos().getPosi()][this.morceau3.getPos().getPosj()].setMorceau(this.morceau3);
     }
 
+    public void echangerPos(Ingredient ingredient) {
+        Position tmp1 = this.morceau1.getPos();
+        Position tmp2 = this.morceau2.getPos();
+        Position tmp3 = this.morceau3.getPos();
+        
+        this.morceau1.setPos(ingredient.morceau1.getPos());
+        this.morceau2.setPos(ingredient.morceau2.getPos());
+        this.morceau3.setPos(ingredient.morceau3.getPos());
+        
+        ingredient.morceau1.setPos(tmp1);
+        ingredient.morceau2.setPos(tmp2);
+        ingredient.morceau3.setPos(tmp3);
+        
+        this.placerDansCellule(cellules);
+        ingredient.placerDansCellule(cellules);
+    }
+    
     // Get
     public String getType() {
         return this.type;
@@ -54,7 +75,11 @@ public class Ingredient extends Thread {
     public Morceau getMorceau3() {
         return this.morceau3;
     }
-
+    
+    public Cellule[][] getCellules() {
+        return this.cellules;
+    }
+    
     // Set
     public void setType(String type) {
         this.type = type;
@@ -70,6 +95,15 @@ public class Ingredient extends Thread {
             return "V";
         } else {
             return null;
+        }
+    }
+    
+    /**
+     * Vérifier l'état des morceaux, s'ils ont été marchés dessus
+     */
+    public void checkEtatMorceaux() {
+        if (this.morceau1.getMarcher() && this.morceau2.getMarcher() && this.morceau3.getMarcher()) {
+            this.burger.faireTomber(this);
         }
     }
 
