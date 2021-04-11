@@ -49,6 +49,8 @@ public class MessageFactory {
                 return new MessageClientDeconnexion(args[1]);
             case "SERVER_LOBBY_REFRESH":
                 return new MessageLobbyActualiser(args[1], args[2]);
+            case "SERVER_LOAD_LEVEL":
+                return new MessageEnvoyerLevel(args[1]);
             default:
                 throw new Exception("Message reçu inconnu : " + msg);
         }
