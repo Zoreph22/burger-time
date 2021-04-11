@@ -50,17 +50,20 @@ public class Burger {
 
     public void faireTomber(Ingredient source) {
         int indexSource = this.getIndex(source);
-        
+
+        source.getCellules()[source.getMorceau1().getPos().getPosi()][source.getMorceau1().getPos().getPosj()].setMorceau(null);
+        source.getCellules()[source.getMorceau2().getPos().getPosi()][source.getMorceau2().getPos().getPosj()].setMorceau(null);
+        source.getCellules()[source.getMorceau3().getPos().getPosi()][source.getMorceau3().getPos().getPosj()].setMorceau(null);
+        source.getMorceau1().setMarcher(false);
+        source.getMorceau2().setMarcher(false);
+        source.getMorceau3().setMarcher(false);
+
         Ingredient enCours = source;
-        
         for (int i = indexSource + 1; i < 4; i++) {
             this.ingredients[i].echangerPos(enCours);
             enCours = this.ingredients[i];
         }
-        
-        source.getCellules()[source.getMorceau1().getPos().getPosi()][source.getMorceau1().getPos().getPosj()].setMorceau(null);
-        source.getCellules()[source.getMorceau2().getPos().getPosi()][source.getMorceau2().getPos().getPosj()].setMorceau(null);
-        source.getCellules()[source.getMorceau3().getPos().getPosi()][source.getMorceau3().getPos().getPosj()].setMorceau(null);
+
         // A FIX
     }
 }

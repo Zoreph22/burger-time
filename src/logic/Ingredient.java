@@ -55,7 +55,7 @@ public class Ingredient extends Thread {
         ingredient.morceau2.setPos(tmp2);
         ingredient.morceau3.setPos(tmp3);
         
-        this.placerDansCellule(cellules);
+        //this.placerDansCellule(cellules);
         ingredient.placerDansCellule(cellules);
     }
     
