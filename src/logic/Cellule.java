@@ -45,6 +45,10 @@ public class Cellule {
         this.morceau = morceau;
     }
 
+    public boolean isBord() {
+        return this.decor == '▄' || this.decor == '▀' || this.decor == '▐' || this.decor == '▌';
+    }
+    
     // toString
     public String toString(){
         if(this.entity != null){

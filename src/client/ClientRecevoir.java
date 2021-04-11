@@ -34,12 +34,12 @@ public class ClientRecevoir extends Thread {
             // Réception d'un message du serveur
             try {
                 this.msgRecu = this.socket.recevoir();
-            } catch (IOException ex) {
-                Logger.getLogger(ClientRecevoir.class.getName()).log(Level.SEVERE, null, ex);
-            }
 
-            // On traite ce message
-            this.reagirAuMessageRecu();
+                // On traite ce message
+                this.reagirAuMessageRecu();
+            } catch (IOException ex) {
+                this.socket.deconnecter();
+            }
         }
     }
 

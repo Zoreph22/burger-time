@@ -34,6 +34,9 @@ public class MessageDeconnexionClient extends Message {
             lobby.decrementerNbJoueurs();
             lobby.setNbPrets(0);
             socket.broadcast("SERVER_LOBBY_REFRESH|" + lobby.getNbJoueurs() + "|" + lobby.getNbPrets());
+        // Sinon, fermer le serveur car un joueur a quitté en cours de partie
+        } else {
+            socket.stopServeur();
         }
         
         socket.deconnecterClient(this.idClient);

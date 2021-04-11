@@ -3,7 +3,6 @@ package logic;
 public class Player extends Entity {
 
     // Attributs
-
     // Constructeurs
     public Player(int posi, int posj, String symbol, Cellule[][] cellules, Level level) {
         super(posi, posj, cellules, level);
@@ -15,17 +14,21 @@ public class Player extends Entity {
 
     }
 
-    //Collision Ingredient
-    public Ingredient ingredientCollision(Ingredient ingredient){
-        if(isColliding(ingredient.getMorceau1().getPos().getPosi(), ingredient.getMorceau1().getPos().getPosj())){
+    public Ingredient ingredientCollision() {          
+        Ingredient ingredient = null;
+    
+        if (isColliding(ingredient.getMorceau1().getPos().getPosi(), ingredient.getMorceau1().getPos().getPosj())) {
             return ingredient;
         }
-        if(isColliding(ingredient.getMorceau2().getPos().getPosi(), ingredient.getMorceau1().getPos().getPosj())){
+
+        if (isColliding(ingredient.getMorceau2().getPos().getPosi(), ingredient.getMorceau1().getPos().getPosj())) {
             return ingredient;
         }
-        if(isColliding(ingredient.getMorceau3().getPos().getPosi(), ingredient.getMorceau1().getPos().getPosj())){
+
+        if (isColliding(ingredient.getMorceau3().getPos().getPosi(), ingredient.getMorceau1().getPos().getPosj())) {
             return ingredient;
         }
+
         return null;
     }
 }
