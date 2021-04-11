@@ -1,7 +1,7 @@
 package menus;
 
 import client.ClientSocket;
-import client.RawConsoleInput;
+import utils.RawConsoleInput;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -46,7 +46,7 @@ public class MenuLobby {
      */
     public ClientSocket startClient() {
         boolean ok = false;
-        ClientSocket socket = new ClientSocket();
+        ClientSocket socket = ClientSocket.getInstance();
 
         while (!ok) {
             RawConsoleInput.clear();

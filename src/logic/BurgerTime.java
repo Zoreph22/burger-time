@@ -9,15 +9,13 @@ import menus.MenuLobby;
 import serveur.ServeurSocket;
 
 public class BurgerTime {
-    public static void main(String[] args) throws IOException {
-        //Game game = new Game();
 
+    public static void main(String[] args) throws IOException {
         int choixDemarrage = new MenuDemarrage().getChoix();
 
         switch (choixDemarrage) {
             case 1:
-                ServeurSocket socketS = new ServeurSocket();
-                socketS.start();
+                ServeurSocket.getInstance().start();
                 break;
             case 2:
                 ClientSocket socketC = new MenuLobby().startClient();
@@ -26,6 +24,6 @@ public class BurgerTime {
                 clientE.start();
                 clientR.start();
                 break;
-        }  
+        }
     }
 }

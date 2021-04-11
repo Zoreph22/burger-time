@@ -3,6 +3,8 @@ package client;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import messages.Message;
+import messages.MessageFactory;
 
 /**
  * Classe qui gère les actions en fonction des messages envoyés et reçus au
@@ -14,8 +16,6 @@ public class ClientRecevoir extends Thread {
     private ClientSocket socket;
     // Message reçu du serveur
     private String msgRecu;
-    // La communication avec le serveur est active ?
-    private boolean enCommunication;
 
     /**
      * @param socket Socket du serveur
@@ -26,12 +26,11 @@ public class ClientRecevoir extends Thread {
 
     @Override
     public void run() {
-        this.enCommunication = true;
         this.boucleCommunication();
     }
 
     public void boucleCommunication() {
-        while (this.enCommunication && !this.socket.isClosed()) {
+        while (!this.socket.isClosed()) {
             // Réception d'un message du serveur
             try {
                 this.msgRecu = this.socket.recevoir();
@@ -45,13 +44,13 @@ public class ClientRecevoir extends Thread {
     }
 
     public void reagirAuMessageRecu() {
-        switch (this.msgRecu) {
-            case "STOP_CONNECTION":
-                this.enCommunication = false;
-                this.socket.deconnecter();
-                break;
-            default:
-                System.err.println("Message reçu inconnu : " + this.msgRecu + ".");
+        Message msg;
+
+        try {
+            msg = MessageFactory.creerMessageServeur(this.msgRecu);
+            msg.action();
+        } catch (Exception ex) {
+            ex.printStackTrace(System.err);
         }
     }
 }

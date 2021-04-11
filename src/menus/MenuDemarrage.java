@@ -1,6 +1,6 @@
 package menus;
 
-import client.RawConsoleInput;
+import utils.RawConsoleInput;
 import java.util.Scanner;
 
 /**

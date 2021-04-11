@@ -1,28 +1,51 @@
 package serveur;
 
-import client.RawConsoleInput;
+import utils.RawConsoleInput;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import logic.Game;
+import serveur.phases.PhaseLobby;
 
 /**
- * Classe établissant la connexion avec les clients
+ * Classe singleton établissant la connexion avec les clients
  */
 public class ServeurSocket extends Thread {
+
+    // Instance unique de la classe
+    private static ServeurSocket instance;
 
     // Le thread est en cours d'exécution ?
     private boolean running;
     // Socket du serveur
     private ServerSocket serverSocket;
-    // Gestionnaire des clients connectés
-    private ArrayList<ClientHandler> clients = new ArrayList<>();
+    // Gestionnaire des clients connectés (clé = identifiant du client)
+    private HashMap<Integer, ClientHandler> clients = new HashMap<>();
+    // Nombre de clients connectés
+    private int nbClients = 0;
+    // Instance du jeu
+    private Game game;
 
-    public ServeurSocket() {
+    private ServeurSocket() {
+        this.game = new Game();
         this.demarrer();
+    }
+
+    /**
+     * Retourner l'instance unique ServeurSocket
+     *
+     * @return Instance unique
+     */
+    public static ServeurSocket getInstance() {
+        if (instance == null) {
+            instance = new ServeurSocket();
+        }
+
+        return instance;
     }
 
     /**
@@ -55,8 +78,8 @@ public class ServeurSocket extends Thread {
         this.running = false;
         System.out.println("Fermeture du serveur...");
 
-        for (ClientHandler client : this.clients) {
-            this.broadcast("STOP_CONNECTION");
+        for (ClientHandler client : this.clients.values()) {
+            this.broadcast("SERVER_DISCONNECT");
             client.deconnecter();
         }
 
@@ -69,18 +92,30 @@ public class ServeurSocket extends Thread {
         System.out.println("Serveur fermé.");
     }
 
+    /**
+     * Déconnecter un client du serveur
+     *
+     * @param idClient Identifiant client
+     */
+    public void deconnecterClient(int idClient) {
+        ClientHandler client = this.clients.get(idClient);
+        client.deconnecter();
+        this.clients.remove(idClient);
+    }
+
     @Override
     public void run() {
         this.running = true;
-        this.ecouterConnexions();
+        this.ecouterConnexions(); // Phase Lobby
     }
 
     /**
-     * Écouter les demandes de connexion de la part des clients
+     * Écouter les demandes de connexion de la part des clients (Phase Lobby)
      *
      * @throws IOException
      */
     public void ecouterConnexions() {
+        this.game.setPhaseCourante(new PhaseLobby());
         System.out.println("En attente de demandes de connexion...");
 
         // On écoute les demandes de connexion de la part des clients
@@ -89,8 +124,9 @@ public class ServeurSocket extends Thread {
             Socket socket;
 
             try {
-                ClientHandler handler = new ClientHandler(serverSocket.accept());
-                this.clients.add(handler);
+                ClientHandler handler = new ClientHandler(serverSocket.accept(), this.nbClients + 1);
+                this.clients.put(handler.getClientId(), handler);
+                this.nbClients++;
                 handler.start();
             } catch (SocketException ex) {
             } catch (IOException ex) {
@@ -106,8 +142,12 @@ public class ServeurSocket extends Thread {
      * @param msg Message à envoyer
      */
     public void broadcast(String msg) {
-        for (ClientHandler client : this.clients) {
+        for (ClientHandler client : this.clients.values()) {
             client.envoyer(msg);
         }
+    }
+
+    public Game getGame() {
+        return this.game;
     }
 }

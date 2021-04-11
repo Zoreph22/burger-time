@@ -5,6 +5,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import messages.Message;
+import messages.MessageFactory;
+import serveur.phases.PhaseLobby;
 
 /**
  * Classe qui gère la communication avec un client connecté
@@ -13,6 +18,8 @@ public class ClientHandler extends Thread {
 
     // Le thread est en cours d'exécution ?
     private boolean running;
+    // Identifiant associé au client
+    private int id;
     // Socket du client
     private Socket clientSocket;
     // Flux de réception des messages
@@ -23,20 +30,33 @@ public class ClientHandler extends Thread {
     private String msgRecu;
 
     /**
-     * @param socket Socket du client connecté
+     * @param clientSocket Socket du client connecté
+     * @param id Identifiant du client
      */
-    public ClientHandler(Socket socket) {
-        this.clientSocket = socket;
+    public ClientHandler(Socket clientSocket, int id) {
+        this.clientSocket = clientSocket;
+        this.id = id;
         this.connecter();
     }
 
     /**
-     * Initialiser la connexion avec le client
+     * Retourner l'identifiant du client
+     *
+     * @return Identifiant client
+     */
+    public int getClientId() {
+        return this.id;
+    }
+
+    /**
+     * Initialiser la connexion avec le client, et rejoindre le lobby
      */
     public void connecter() {
         try {
             this.initFlux();
+            ((PhaseLobby) ServeurSocket.getInstance().getGame().getPhaseCourante()).incrementerNbJoueurs();
             this.log("Connexion effectuée");
+            this.envoyer("SERVER_CLIENT_INFO|" + this.id);
         } catch (IOException ex) {
             this.error("Impossible d'initialiser les flux de communication : " + ex.getMessage());
         }
@@ -123,6 +143,12 @@ public class ClientHandler extends Thread {
             try {
                 this.msgRecu = this.recevoir();
             } catch (IOException ex) {
+                // Déconnecter le client si problème de communication
+                try {
+                    MessageFactory.creerMessageClient("CLIENT_DISCONNECTED|" + this.id).action();
+                } catch (Exception ex2) {
+                }
+
                 this.error("Erreur de réception : " + ex.getMessage());
             }
 
@@ -132,6 +158,13 @@ public class ClientHandler extends Thread {
     }
 
     public void reagirAuMessageRecu() {
-        // REAGIR
+        Message msg;
+
+        try {
+            msg = MessageFactory.creerMessageClient(this.msgRecu);
+            msg.action();
+        } catch (Exception ex) {
+            this.error(ex.getMessage());
+        }
     }
 }
