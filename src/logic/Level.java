@@ -59,6 +59,29 @@ public class Level {
         return this.cellules;
     }
 
+    // Symbol Get
+    public char getLadder(){
+        return this.ladder;
+    }
+    public char getAir(){
+        return this.air;
+    }
+    public char getFloor(){
+        return this.floor;
+    }
+    public char getBordHaut(){
+        return this.bord_haut;
+    }
+    public char getBordBas(){
+        return this.bord_bas;
+    }
+    public char getBordDroite(){
+        return this.bord_droit;
+    }
+    public char getBordGauche(){
+        return this.bord_gauche;
+    }
+
     // Set
     public void setChar(int i, int j, char c) {
         levels[i][j] = c;
@@ -95,7 +118,7 @@ public class Level {
                         ladder},
                     {air, air, ladder, air, ladder, air, air, air, ladder, air, ladder, air, ladder, air, air, air,
                         ladder},
-                    {floor, floor, floor, floor, floor, air, air, air, ladder, air, ladder, air, floor, floor, floor,
+                    {floor, floor, floor, floor, floor, air, air, air, ladder, air, ladder, air, ladder, floor, floor,
                         floor, floor},
                     {ladder, air, ladder, air, ladder, floor, floor, floor, floor, floor, floor, floor, floor, air,
                         ladder, air, air},
@@ -133,7 +156,7 @@ public class Level {
                     }
                 }
 
-                this.getPlayers().setPlayers(0, new Player(this.getHeight() - 1, 9, "C", cellules));
+                this.getPlayers().setPlayers(0, new Player(this.getHeight() - 1, 9, "C", cellules, this));
                 cellules[this.getHeight() - 1][9].setEntity(this.getPlayers().getPlayers(0));
 
                 Ingredient burger1[] = {new Ingredient("P1", 4, 3, cellules), new Ingredient("S", 8, 3, cellules),

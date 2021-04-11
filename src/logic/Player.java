@@ -5,8 +5,8 @@ public class Player extends Entity {
     // Attributs
 
     // Constructeurs
-    public Player(int posi, int posj, String symbol, Cellule[][] cellules) {
-        super(posi, posj, cellules);
+    public Player(int posi, int posj, String symbol, Cellule[][] cellules, Level level) {
+        super(posi, posj, cellules, level);
         setSymbol(symbol);
     }
 
