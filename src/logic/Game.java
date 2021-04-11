@@ -5,7 +5,7 @@ package logic;
  */
 import java.util.Scanner;
 import serveur.phases.Phase;
-import client.RawConsoleInput;
+import utils.RawConsoleInput;
 
 public class Game {
 
