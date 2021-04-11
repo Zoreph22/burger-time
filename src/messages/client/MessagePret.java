@@ -31,7 +31,7 @@ public class MessagePret extends Message {
         PhasePartie partie = new PhasePartie();
         partie.setLevel(0);
         ServeurSocket.getInstance().getGame().setPhaseCourante(partie);
-        ServeurSocket.getInstance().broadcast("SERVER_LOAD_LEVEL|" + partie.getLevel());
+        ServeurSocket.getInstance().broadcast("SERVER_LOAD_LEVEL|" + 0);
     }
 
 }

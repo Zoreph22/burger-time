@@ -26,7 +26,7 @@ public class ClientEnvoyer extends Thread {
     public ClientEnvoyer(ClientSocket socket) {
         this.socket = socket;
     }
-    
+
     @Override
     public void run() {
         this.boucleClavier();
@@ -45,7 +45,7 @@ public class ClientEnvoyer extends Thread {
             }
         }
     }
-    
+
     public void reagirAuToucheClavier() {
         Game game = ClientSocket.getInstance().getGame();
         Phase phase = game.getPhaseCourante();
@@ -60,19 +60,18 @@ public class ClientEnvoyer extends Thread {
         // Phase lobby
         if (phase.getNom().equals("PhaseLobby")) {
             PhaseLobby lobby = (PhaseLobby) phase;
-            
-            switch (this.codeToucheAppuyee) {
-                case 13: // Touche Entrée
-                    // Ne rien faire si le joueur est déjà prêt
-                    if (lobby.getEstPret()) {
-                        return;
-                    }
-                    
-                    ClientSocket.getInstance().envoyer("CLIENT_LOBBY_PLAYER_READY");
-                    lobby.setEstPret(true);
-                    break;
+
+            if (this.codeToucheAppuyee == 13 || this.codeToucheAppuyee == 10) {
+                // Ne rien faire si le joueur est déjà prêt
+                if (lobby.getEstPret()) {
+                    return;
+                }
+
+                ClientSocket.getInstance().envoyer("CLIENT_LOBBY_PLAYER_READY");
+                lobby.setEstPret(true);
             }
+
         }
-        
+
     }
 }

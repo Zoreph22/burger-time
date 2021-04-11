@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import logic.Game;
 import serveur.phases.PhaseLobby;
+import utils.RawConsoleInput;
 
 /**
  * Classe singleton établissant la connexion avec la serveur
@@ -72,7 +73,7 @@ public class ClientSocket {
      * Déconnexion du serveur
      */
     public void deconnecter() {
-        System.out.println("Déconnexion du serveur...");
+        RawConsoleInput.println("Déconnexion du serveur...");
 
         this.envoyer("CLIENT_DISCONNECTED|" + this.id);
 
@@ -82,8 +83,8 @@ public class ClientSocket {
             System.err.println("Erreur de déconnexion du serveur : " + ex.getMessage() + ".");
         }
 
-        System.out.println("Déconnecté du serveur.");
-        System.out.println("Appuyez sur une touche pour quitter le jeu.");
+        RawConsoleInput.println("Déconnecté du serveur.");
+        RawConsoleInput.println("Appuyez sur une touche pour quitter le jeu.");
     }
 
     /**
@@ -114,7 +115,7 @@ public class ClientSocket {
      * @param message Le message à envoyer
      */
     public void envoyer(String message) {
-        System.out.println(">> " + message);
+        RawConsoleInput.println(">> " + message);
         this.fluxSortant.println(message);
     }
 
@@ -126,7 +127,7 @@ public class ClientSocket {
      */
     public String recevoir() throws IOException {
         String message = this.fluxEntrant.readLine();
-        System.out.println("<< " + message);
+        RawConsoleInput.println("<< " + message);
         return message;
     }
 

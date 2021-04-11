@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import messages.Message;
 import messages.MessageFactory;
 import serveur.phases.PhaseLobby;
+import utils.RawConsoleInput;
 
 /**
  * Classe qui gère la communication avec un client connecté
@@ -97,7 +98,7 @@ public class ClientHandler extends Thread {
      * @param msg Message log
      */
     public void log(String msg) {
-        System.out.println("[IP : " + this.clientSocket.getInetAddress() + "] " + msg + ".");
+        RawConsoleInput.println("[IP : " + this.clientSocket.getInetAddress() + "] " + msg + ".");
     }
 
     /**

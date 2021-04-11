@@ -27,6 +27,10 @@ import com.sun.jna.Native;
 import com.sun.jna.Structure;
 import com.sun.jna.Pointer;
 import com.sun.jna.ptr.IntByReference;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A JNA based driver for reading single characters from the console.
@@ -45,19 +49,43 @@ public class RawConsoleInput {
     private static boolean stdinIsConsole;
     private static boolean consoleModeAltered;
 
+    private static PrintStream outStream;
+
+    static {
+        try {
+            outStream = new PrintStream(System.out, true, "UTF-8");
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(RawConsoleInput.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     /**
      * Clear the console
      */
     public static void clear() {
         try {
             if (System.getProperty("os.name").contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "chcp 65001").inheritIO().start().waitFor();
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
             } else {
-                Runtime.getRuntime().exec("clear");
+                RawConsoleInput.print("\033[H\033[2J");
+                System.out.flush();
             }
         } catch (IOException | InterruptedException ex) {
             ex.printStackTrace(System.err);
         }
+    }
+
+    public static void println(String s) {
+        outStream.println(s);
+    }
+
+    public static void println() {
+        outStream.println();
+    }
+
+    public static void print(String s) {
+        outStream.print(s);
     }
 
     /**

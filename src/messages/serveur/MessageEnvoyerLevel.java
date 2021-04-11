@@ -18,7 +18,8 @@ public class MessageEnvoyerLevel extends Message {
     
     @Override
     public void action() {
-        PhasePartie partie = (PhasePartie) ClientSocket.getInstance().getGame().getPhaseCourante();
+        PhasePartie partie = new PhasePartie();
+        ClientSocket.getInstance().getGame().setPhaseCourante(partie);
         partie.setLevel(this.numLevel);
         partie.getLevel().print();
         partie.getLevel().getAssiettes().print();

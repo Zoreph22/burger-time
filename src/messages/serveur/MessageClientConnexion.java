@@ -4,6 +4,7 @@ import client.ClientSocket;
 import messages.Message;
 import serveur.phases.Phase;
 import serveur.phases.PhaseLobby;
+import utils.RawConsoleInput;
 
 /**
  * Message indiquant qu'un joueur s'est connecté au serveur
@@ -33,7 +34,6 @@ public class MessageClientConnexion extends Message {
             PhaseLobby lobby = (PhaseLobby) phase;
             lobby.setEstPret(false);
             lobby.afficher();
-            System.out.println("HERE");
         }
     }
 

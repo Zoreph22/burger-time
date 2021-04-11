@@ -1,5 +1,7 @@
 package logic;
 
+import utils.RawConsoleInput;
+
 public class Assiettes {
 
     // Attributs
@@ -44,10 +46,10 @@ public class Assiettes {
 
     // Print
     public void print() {
-        System.out.println("");
+        RawConsoleInput.println("");
         for (int i = 0; i < this.size; i++)
-            System.out.print("└───┘");
+            RawConsoleInput.print("└───┘");
 
-        System.out.println("");
+        RawConsoleInput.println("");
     }
 }

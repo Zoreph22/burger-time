@@ -13,11 +13,11 @@ public class MenuDemarrage {
      */
     public void showMenu() {
         RawConsoleInput.clear();
-        System.out.println("Burger Time");
-        System.out.println();
-        System.out.println("Saisir le numéro du choix que vous souhaitez :");
-        System.out.println("1. Démarrer un serveur de jeu");
-        System.out.println("2. Rejoindre un serveur de jeu");
+        RawConsoleInput.println("Burger Time");
+        RawConsoleInput.println();
+        RawConsoleInput.println("Saisir le numéro du choix que vous souhaitez :");
+        RawConsoleInput.println("1. Démarrer un serveur de jeu");
+        RawConsoleInput.println("2. Rejoindre un serveur de jeu");
     }
 
     /**

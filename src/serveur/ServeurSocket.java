@@ -52,7 +52,7 @@ public class ServeurSocket extends Thread {
      * Démarrer le serveur
      */
     private void demarrer() {
-        System.out.println("Démarrage du serveur...");
+        RawConsoleInput.println("Démarrage du serveur...");
         RawConsoleInput.clear();
 
         try {
@@ -63,7 +63,7 @@ public class ServeurSocket extends Thread {
                 this.stopServeur();
             }));
 
-            System.out.println("Serveur démarré.");
+            RawConsoleInput.println("Serveur démarré.");
         } catch (IOException ex) {
             System.err.println("Erreur de démarrage du serveur : " + ex.getMessage() + ".");
         }
@@ -76,7 +76,7 @@ public class ServeurSocket extends Thread {
      */
     public void stopServeur() {
         this.running = false;
-        System.out.println("Fermeture du serveur...");
+        RawConsoleInput.println("Fermeture du serveur...");
 
         for (ClientHandler client : this.clients.values()) {
             this.broadcast("SERVER_DISCONNECT");
@@ -89,7 +89,7 @@ public class ServeurSocket extends Thread {
             Logger.getLogger(ServeurSocket.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        System.out.println("Serveur fermé.");
+        RawConsoleInput.println("Serveur fermé.");
     }
 
     /**
@@ -116,7 +116,7 @@ public class ServeurSocket extends Thread {
      */
     public void ecouterConnexions() {
         this.game.setPhaseCourante(new PhaseLobby());
-        System.out.println("En attente de demandes de connexion...");
+        RawConsoleInput.println("En attente de demandes de connexion...");
 
         // On écoute les demandes de connexion de la part des clients
         while (this.running) {

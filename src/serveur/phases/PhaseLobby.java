@@ -77,16 +77,16 @@ public class PhaseLobby extends Phase {
      */
     public void afficher() {
         RawConsoleInput.clear();
-        System.out.println("ID : " + ClientSocket.getInstance().getIdClient());
-        System.out.println("Lobby, en attente d'autres joueurs.");
-        System.out.println();
-        System.out.println("Joueurs connectés : " + this.nbJoueurs + ".");
-        System.out.println("Joueurs prêts : " + this.nbPrets + ".");
+        RawConsoleInput.println("ID : " + ClientSocket.getInstance().getIdClient());
+        RawConsoleInput.println("Lobby, en attente d'autres joueurs.");
+        RawConsoleInput.println();
+        RawConsoleInput.println("Joueurs connectés : " + this.nbJoueurs + ".");
+        RawConsoleInput.println("Joueurs prêts : " + this.nbPrets + ".");
 
         if (!this.estPret) {
-            System.out.println();
-            System.out.println();
-            System.out.println("Appuyez sur Entrée quand vous êtes prêt à démarrer la partie.");
+            RawConsoleInput.println();
+            RawConsoleInput.println();
+            RawConsoleInput.println("Appuyez sur Entrée quand vous êtes prêt à démarrer la partie.");
         }
     }
 

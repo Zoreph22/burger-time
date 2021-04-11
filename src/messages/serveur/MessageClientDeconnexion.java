@@ -33,7 +33,6 @@ public class MessageClientDeconnexion extends Message {
             PhaseLobby lobby = (PhaseLobby) phase;
             lobby.setEstPret(false);
             lobby.afficher();
-            System.out.println("HERE");
         }
     }
 

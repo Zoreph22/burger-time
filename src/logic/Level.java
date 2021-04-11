@@ -69,9 +69,9 @@ public class Level {
         RawConsoleInput.clear();
         for (int i = 0; i < getHeight() + 2; i++) {
             for (int j = 0; j < getWidth() + 2; j++) {
-                System.out.print(cellules[i][j]);
+                RawConsoleInput.print("" + cellules[i][j]);
             }
-            System.out.println();
+            RawConsoleInput.println();
         }
     }
 

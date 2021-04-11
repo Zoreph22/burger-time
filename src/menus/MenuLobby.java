@@ -15,9 +15,9 @@ public class MenuLobby {
      */
     public void showMenu() {
         RawConsoleInput.clear();
-        System.out.println("Lobby, rejoindre un serveur");
-        System.out.println();
-        System.out.println("Saisir l'IP du serveur :");
+        RawConsoleInput.println("Lobby, rejoindre un serveur");
+        RawConsoleInput.println();
+        RawConsoleInput.println("Saisir l'IP du serveur :");
     }
 
     /**
@@ -54,11 +54,11 @@ public class MenuLobby {
 
             try {
                 RawConsoleInput.clear();
-                System.out.println("Connexion au serveur " + ip + "...");
+                RawConsoleInput.println("Connexion au serveur " + ip + "...");
                 socket.connecter(ip);
                 ok = true;
             } catch (IOException ex) {
-                System.out.println("Erreur de connexion, réessayez.");
+                RawConsoleInput.println("Erreur de connexion, réessayez.");
 
                 try {
                     Thread.sleep(1000);
