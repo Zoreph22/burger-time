@@ -65,7 +65,7 @@ public abstract class Entity extends Thread {
                 pos.setPosi(pos.getPosi() + 1);
                 cellules[pos.getPosi()][pos.getPosj()].setEntity(this);
             }   
-            else if(cellules[pos.getPosi()+1][pos.getPosj()].getDecor() == getLevel().getFloor() && cellules[pos.getPosi()][pos.getPosj()].getDecor() == getLevel().getLadder() && pos.getPosi() < cellules.length-3){
+            else if(cellules[pos.getPosi()+1][pos.getPosj()].getDecor() == getLevel().getFloor() && cellules[pos.getPosi()+2][pos.getPosj()].getDecor() == getLevel().getLadder() &&(pos.getPosi() < cellules.length-3)){
                 cellules[pos.getPosi()][pos.getPosj()].setEntity(null);
                 pos.setPosi(pos.getPosi() + 2);
                 cellules[pos.getPosi()][pos.getPosj()].setEntity(this);
