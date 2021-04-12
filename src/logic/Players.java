@@ -20,5 +20,9 @@ public class Players {
         this.players[id] = player;
     }
 
+    public int playersSize(){
+        return this.players.length;
+    }
+
 
 }

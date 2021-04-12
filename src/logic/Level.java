@@ -160,9 +160,9 @@ public class Level {
                 this.getPlayers().setPlayers(0, new Player(this.getHeight() - 1, 9, "C", cellules, this));
                 cellules[this.getHeight() - 1][9].setEntity(this.getPlayers().getPlayers(0));
                 
-                Enemy enemy = new Enemy(this.getHeight() - 1, 13, "E", cellules, this);
+                Enemy enemy = new Enemy(4, 13, "E", cellules, this);
                 this.getEnemys().setEnemys(0, enemy);
-                cellules[this.getHeight() - 1][13].setEntity(enemy);
+                cellules[enemy.getPosition().getPosi()][enemy.getPosition().getPosj()].setEntity(enemy);
                 
                 Ingredient burger1[] = new Ingredient[4];
                 Ingredient burger2[] = new Ingredient[4];
@@ -193,7 +193,7 @@ public class Level {
                 
                 burger4[0] = new Ingredient("P1", 4, 15, cellules, b4, 4);
                 burger4[1] = new Ingredient("S", 8, 15, cellules, b4, 3);
-                burger4[2] = new Ingredient("V", 13, 15, cellules, b4, 2);
+                burger4[2] = new Ingredient("V", 11, 15, cellules, b4, 2);
                 burger4[3] = new Ingredient("P2", this.getHeight() - 1, 15, cellules, b4, 1);
                 
                 // this.assiettes = new Assiettes(4);

@@ -52,6 +52,10 @@ public class Cellule {
     public boolean isSol() {
         return this.decor == '▬';
     }
+
+    public boolean isLadder(){
+        return this.decor == '▒';
+    }
     
     // toString
     public String toString(){
