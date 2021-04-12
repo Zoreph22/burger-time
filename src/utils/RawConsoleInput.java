@@ -66,7 +66,7 @@ public class RawConsoleInput {
         try {
             if (System.getProperty("os.name").contains("Windows")) {
                 new ProcessBuilder("cmd", "/c", "chcp 65001").inheritIO().start().waitFor();
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+                //new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
             } else {
                 RawConsoleInput.print("\033[H\033[2J");
                 System.out.flush();

@@ -42,12 +42,18 @@ public class Morceau {
     }
 
     public String toString() {
-        return this.getIngredient().toString();
+        String c = this.getIngredient().toString();
+
+        if (this.marcher) {
+            c = c.toLowerCase();
+        }
+
+        return c;
     }
 
     public void collisionEffect(Entity entity) {
         if (entity.getType().equals("Player")) {
-            this.marcher = true; 
+            this.marcher = true;
             this.ingredient.checkEtatMorceaux();
         }
     }

@@ -49,6 +49,10 @@ public class Cellule {
         return this.decor == '▄' || this.decor == '▀' || this.decor == '▐' || this.decor == '▌';
     }
     
+    public boolean isSol() {
+        return this.decor == '▬';
+    }
+    
     // toString
     public String toString(){
         if(this.entity != null){
