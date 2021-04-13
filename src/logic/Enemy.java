@@ -3,7 +3,7 @@ package logic;
 import utils.RawConsoleInput;
 
 public class Enemy extends Entity {
-    
+
     // Attributs
     private Ia ia;
     private Level level;
@@ -13,22 +13,16 @@ public class Enemy extends Entity {
         super(posi, posj, cellules, level);
         setSymbol(symbol);
         this.level = level;
-        ia = new Ia(this,level);
-        // ia.start();
-    }
-
-    // Méthode run de Enemy
-    public void run() {
-
+        this.ia = new Ia(this, level);
     }
 
     // Get
-    public Ia getIa(){
+    public Ia getIa() {
         return this.ia;
     }
 
     // Set
-    public void setIa(Ia ia){
+    public void setIa(Ia ia) {
         this.ia = ia;
     }
 

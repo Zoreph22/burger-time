@@ -53,6 +53,10 @@ public class Cellule {
         return this.decor == '▬';
     }
 
+    public boolean isAir() {
+        return this.decor == ' ';
+    }
+    
     public boolean isLadder(){
         return this.decor == '▒';
     }

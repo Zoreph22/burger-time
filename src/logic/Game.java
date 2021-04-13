@@ -1,14 +1,10 @@
 package logic;
 
+import serveur.phases.Phase;
+
 /**
  * Classe représentant le jeu
  */
-import java.util.Scanner;
-//import java.util.logging.Level;
-
-import serveur.phases.Phase;
-import utils.RawConsoleInput;
-
 public class Game {
 
     // Phase courante du jeu
@@ -35,7 +31,7 @@ public class Game {
     }
 
     public Game() {
-        level = new Level(0);
+        /*level = new Level(0);
         int i = 0;
         while (i != 200) {
             level.print();
@@ -58,6 +54,6 @@ public class Game {
             }
             i++;
             RawConsoleInput.clear();
-        }
+        }*/
     }
 }

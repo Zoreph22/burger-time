@@ -1,8 +1,11 @@
 package logic;
 
+import java.util.UUID;
+
 public abstract class Entity extends Thread {
 
     // Attributs
+    private UUID uuid;
     private Position pos;
     private String symbol;
     private Cellule[][] cellules;
@@ -14,6 +17,7 @@ public abstract class Entity extends Thread {
         pos = new Position(posi, posj);
         this.cellules = cellules;
         this.level = level;
+        this.uuid = UUID.randomUUID();
     }
 
     // Méthode run de Entity extends Thread
@@ -22,6 +26,10 @@ public abstract class Entity extends Thread {
     }
 
     // Get Attributs
+    public UUID getUuid() {
+        return this.uuid;
+    }
+
     public String getSymbol() {
         return this.symbol;
     }
@@ -153,7 +161,7 @@ public abstract class Entity extends Thread {
     public boolean gererCollision(int posi, int posj) {
         //Entity entity = this.entityCollision(cellules[posi][posj].getEntity());
         //Morceau morceau = this.morceauCollision(cellules[posi][posj].getMorceau());
-        
+
         Entity entity = cellules[posi][posj].getEntity();
         Morceau morceau = cellules[posi][posj].getMorceau();
 

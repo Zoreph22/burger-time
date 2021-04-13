@@ -1,22 +1,26 @@
 package logic;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.UUID;
+
 public class Enemys {
 
     // Attributs
-    private Enemy[] enemys;
+    private HashMap<UUID, Enemy> enemys;
 
     // Get
-    public Enemy[] getEnemys() {
-        return this.enemys;
+    public Collection<Enemy> getEnemys() {
+        return this.enemys.values();
     }
 
     // Set
-    public void setEnemys(int id, Enemy enemy) {
-        this.enemys[id] = enemy;
+    public void setEnemys(Enemy enemy) {
+        this.enemys.put(enemy.getUuid(), enemy);
     }
 
     // Constructeurs
-    public Enemys(int size) {
-        enemys = new Enemy[size];
+    public Enemys() {
+        this.enemys = new HashMap<>();
     }
 }

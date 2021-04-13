@@ -27,8 +27,12 @@ public class Level {
     public Level(int level) {
         levelCourant = level;
         players = new Players(1);
-        enemys = new Enemys(5);
+        enemys = new Enemys();
         initLevels();
+        
+        for (Enemy enemy : this.enemys.getEnemys()) {
+            enemy.getIa().start();
+        }
     }
 
     // Get
@@ -161,8 +165,12 @@ public class Level {
                 cellules[this.getHeight() - 1][9].setEntity(this.getPlayers().getPlayers(0));
                 
                 Enemy enemy = new Enemy(4, 13, "E", cellules, this);
-                this.getEnemys().setEnemys(0, enemy);
+                this.getEnemys().setEnemys(enemy);
                 cellules[enemy.getPosition().getPosi()][enemy.getPosition().getPosj()].setEntity(enemy);
+                
+                Enemy enemy2 = new Enemy(1, 1, "E", cellules, this);
+                this.getEnemys().setEnemys(enemy2);
+                cellules[enemy2.getPosition().getPosi()][enemy2.getPosition().getPosj()].setEntity(enemy2);
                 
                 Ingredient burger1[] = new Ingredient[4];
                 Ingredient burger2[] = new Ingredient[4];

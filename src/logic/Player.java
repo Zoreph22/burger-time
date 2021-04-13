@@ -1,5 +1,7 @@
 package logic;
 
+import utils.RawConsoleInput;
+
 public class Player extends Entity {
 
     // Attributs
@@ -16,7 +18,7 @@ public class Player extends Entity {
 
     @Override
     public void collisionEffect(Entity entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        RawConsoleInput.println("TOUCHE!!!");
     }
 
     @Override
