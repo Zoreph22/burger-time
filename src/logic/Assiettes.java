@@ -31,7 +31,7 @@ public class Assiettes {
         return this.burgers[id];
     }
 
-    public Boolean getGagner(){
+    public Boolean getGagner() {
         return this.gagner;
     }
 
@@ -44,7 +44,7 @@ public class Assiettes {
         this.burgers[id] = burger;
     }
 
-    public void setGagner(boolean gagner){
+    public void setGagner(boolean gagner) {
         this.gagner = gagner;
     }
 
@@ -139,17 +139,22 @@ public class Assiettes {
         RawConsoleInput.println();
     }
 
-    public void gagner(){
+    public void gagner() {
         int compte = 0;
-        for(int i = 0; i < burgers.length;i++){
+
+        for (int i = 0; i < burgers.length; i++) {
             Burger temp = burgers[i];
-            if(temp.estComplete()){
+            if (temp.estComplete()) {
                 compte++;
             }
         }
-        if(compte == this.size){
+        
+        if (compte == this.size) {
             setGagner(true);
-            ServeurSocket.getInstance().broadcast("SERVER_WIN");
+
+            if (ServeurSocket.isServeur()) {
+                ServeurSocket.getInstance().broadcast("SERVER_LEVEL_WIN");
+            }
         }
     }
 }

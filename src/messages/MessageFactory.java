@@ -57,6 +57,8 @@ public class MessageFactory {
                 return new MessageSpawnPlayer(args[1], args[2], args[3], args[4]);
             case "SERVER_PLAYER_MOVED":
                 return new MessageServerPlayerMoved(args[1], args[2]);
+            case "SERVER_LEVEL_WIN":
+                return new MessageLevelWin();
             default:
                 throw new Exception("Message reçu inconnu : " + msg);
         }

@@ -18,6 +18,8 @@ public class ClientSocket {
 
     // Instance unique de la classe
     private static ClientSocket instance;
+    // Indique si le processus est en mode client
+    private static boolean isClient = false;
 
     // Socket du serveur
     private Socket socket;
@@ -44,9 +46,19 @@ public class ClientSocket {
     public static ClientSocket getInstance() {
         if (instance == null) {
             instance = new ClientSocket();
+            isClient = true;
         }
 
         return instance;
+    }
+
+    /**
+     * Retourner si le processus est en mode client
+     *
+     * @return Mode client ?
+     */
+    public static boolean isClient() {
+        return isClient;
     }
 
     /**

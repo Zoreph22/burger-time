@@ -3,6 +3,7 @@ package logic;
 import java.util.UUID;
 import serveur.ServeurSocket;
 import serveur.phases.Phase;
+import serveur.phases.PhaseGagner;
 import serveur.phases.PhasePartie;
 
 /**
@@ -12,33 +13,6 @@ public class Game {
 
     // Phase courante du jeu
     private Phase phaseCourante;
-    
-    public Game() {
-        /*level = new Level(0);
-        int i = 0;
-        while (i != 200) {
-            level.print();
-            level.getAssiettes().print();
-            Scanner s = new Scanner(System.in);
-            String x = s.nextLine();
-            switch (x) {
-                case "z":
-                    level.getPlayers().getPlayers(0).up(level.getCellules());
-                    break;
-                case "q":
-                    level.getPlayers().getPlayers(0).left(level.getCellules());
-                    break;
-                case "s":
-                    level.getPlayers().getPlayers(0).down(level.getCellules());
-                    break;
-                case "d":
-                    level.getPlayers().getPlayers(0).right(level.getCellules());
-                    break;
-            }
-            i++;
-            RawConsoleInput.clear();
-        }*/
-    }
 
     /**
      * Modifier la phase courante
@@ -84,5 +58,12 @@ public class Game {
                     + "|" + player.getPosition().getPosj()
                     + "|" + player.getSymbol());
         }
+    }
+
+    /**
+     * [CLIENT] Gagner le niveau
+     */
+    public void gagnerNiveau() {
+        this.phaseCourante = new PhaseGagner();
     }
 }

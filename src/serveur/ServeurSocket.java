@@ -20,6 +20,8 @@ public class ServeurSocket extends Thread {
 
     // Instance unique de la classe
     private static ServeurSocket instance;
+    // Indique si le processus est en mode serveur
+    private static boolean isServeur = false;
 
     // Le thread est en cours d'exécution ?
     private boolean running;
@@ -47,9 +49,19 @@ public class ServeurSocket extends Thread {
     public static ServeurSocket getInstance() {
         if (instance == null) {
             instance = new ServeurSocket();
+            isServeur = true;
         }
 
         return instance;
+    }
+
+    /**
+     * Retourner si le processus est en mode serveur
+     *
+     * @return Mode serveur ?
+     */
+    public static boolean isServeur() {
+        return isServeur;
     }
 
     /**
