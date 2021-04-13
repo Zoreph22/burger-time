@@ -139,7 +139,7 @@ public class Assiettes {
         RawConsoleInput.println();
     }
 
-    public void Gagner(){
+    public void gagner(){
         int compte = 0;
         for(int i = 0; i < burgers.length;i++){
             Burger temp = burgers[i];

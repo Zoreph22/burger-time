@@ -8,11 +8,13 @@ public class Morceau {
     private Position pos;
     private boolean marcher;
     private Ingredient ingredient;
+    private Assiettes assiettes;
 
     // Constructeurs
-    public Morceau(int i, int j, Ingredient ingredient) {
+    public Morceau(int i, int j, Ingredient ingredient, Assiettes assiettes) {
         this.pos = new Position(i, j);
         this.ingredient = ingredient;
+        this.assiettes = assiettes;
     }
 
     // Get
@@ -26,6 +28,10 @@ public class Morceau {
 
     public Ingredient getIngredient() {
         return this.ingredient;
+    }
+
+    public Assiettes getAssiettes(){
+        return this.assiettes;
     }
 
     // Set 
@@ -55,6 +61,7 @@ public class Morceau {
         if (entity.getType().equals("Player")) {
             this.marcher = true;
             this.ingredient.checkEtatMorceaux();
+            this.assiettes.gagner();
         }
     }
 }

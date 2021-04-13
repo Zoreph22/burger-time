@@ -11,9 +11,10 @@ public class Ingredient extends Thread {
     private int palierActuel;
     private Burger burger;
     private Cellule[][] cellules;
+    private Assiettes assiettes;
 
     // Constructeurs
-    public Ingredient(String type, int i, int j, Cellule[][] cellules, Burger burger, int palierActuel) {
+    public Ingredient(String type, int i, int j, Cellule[][] cellules, Burger burger, int palierActuel, Assiettes assiettes) {
         this.setType(type);
         this.burger = burger;
         this.cellules = cellules;
@@ -21,6 +22,7 @@ public class Ingredient extends Thread {
         this.palierActuel = palierActuel;
         initMorceau(i, j);
         placerDansCellule(cellules);
+        this.assiettes = assiettes;
     }
 
     public Ingredient(String type, int i, int j) {
@@ -35,9 +37,9 @@ public class Ingredient extends Thread {
 
     // Init
     public void initMorceau(int i, int j) {
-        morceau1 = new Morceau(i, j - 1, this);
-        morceau2 = new Morceau(i, j, this);
-        morceau3 = new Morceau(i, j + 1, this);
+        morceau1 = new Morceau(i, j - 1, this,assiettes);
+        morceau2 = new Morceau(i, j, this,assiettes);
+        morceau3 = new Morceau(i, j + 1, this,assiettes);
     }
 
     public void placerDansCellule(Cellule[][] cellules) {

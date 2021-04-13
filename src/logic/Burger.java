@@ -7,10 +7,12 @@ public class Burger {
 
     // Attributs
     private Ingredient[] ingredients;
+    private Assiettes assiettes;
     
     // Constructeurs
-    public Burger() {
+    public Burger(Assiettes assiettes) {
         ingredients = new Ingredient[4];
+        this.assiettes = assiettes;
     }
     
     public Burger(Ingredient[] ingredients) {

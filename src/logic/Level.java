@@ -190,25 +190,25 @@ public class Level {
 
                 Burger assiettes[] = {b1, b2, b3, b4};
 
-                burger1[0] = new Ingredient("P1", 4, 3, cellules, b1, 4);
-                burger1[1] = new Ingredient("S", 8, 3, cellules, b1, 3);
-                burger1[2] = new Ingredient("V", 13, 3, cellules, b1, 2);
-                burger1[3] = new Ingredient("P2", this.getHeight() - 1, 3, cellules, b1, 1);
+                burger1[0] = new Ingredient("P1", 4, 3, cellules, b1, 4,getAssiettes());
+                burger1[1] = new Ingredient("S", 8, 3, cellules, b1, 3,getAssiettes());
+                burger1[2] = new Ingredient("V", 13, 3, cellules, b1, 2,getAssiettes());
+                burger1[3] = new Ingredient("P2", this.getHeight() - 1, 3, cellules, b1, 1,getAssiettes());
 
-                burger2[0] = new Ingredient("P1", 6, 7, cellules, b2, 4);
-                burger2[1] = new Ingredient("S", 9, 7, cellules, b2, 3);
-                burger2[2] = new Ingredient("V", 13, 7, cellules, b2, 2);
-                burger2[3] = new Ingredient("P2", this.getHeight() - 1, 7, cellules, b2, 1);
+                burger2[0] = new Ingredient("P1", 6, 7, cellules, b2, 4,getAssiettes());
+                burger2[1] = new Ingredient("S", 9, 7, cellules, b2, 3,getAssiettes());
+                burger2[2] = new Ingredient("V", 13, 7, cellules, b2, 2,getAssiettes());
+                burger2[3] = new Ingredient("P2", this.getHeight() - 1, 7, cellules, b2, 1,getAssiettes());
 
-                burger3[0] = new Ingredient("P1", 4, 11, cellules, b3, 4);
-                burger3[1] = new Ingredient("S", 9, 11, cellules, b3, 3);
-                burger3[2] = new Ingredient("V", 13, 11, cellules, b3, 2);
-                burger3[3] = new Ingredient("P2", this.getHeight() - 1, 11, cellules, b3, 1);
+                burger3[0] = new Ingredient("P1", 4, 11, cellules, b3, 4,getAssiettes());
+                burger3[1] = new Ingredient("S", 9, 11, cellules, b3, 3,getAssiettes());
+                burger3[2] = new Ingredient("V", 13, 11, cellules, b3, 2,getAssiettes());
+                burger3[3] = new Ingredient("P2", this.getHeight() - 1, 11, cellules, b3, 1,getAssiettes());
 
-                burger4[0] = new Ingredient("P1", 4, 15, cellules, b4, 4);
-                burger4[1] = new Ingredient("S", 8, 15, cellules, b4, 3);
-                burger4[2] = new Ingredient("V", 11, 15, cellules, b4, 2);
-                burger4[3] = new Ingredient("P2", this.getHeight() - 1, 15, cellules, b4, 1);
+                burger4[0] = new Ingredient("P1", 4, 15, cellules, b4, 4,getAssiettes());
+                burger4[1] = new Ingredient("S", 8, 15, cellules, b4, 3,getAssiettes());
+                burger4[2] = new Ingredient("V", 11, 15, cellules, b4, 2,getAssiettes());
+                burger4[3] = new Ingredient("P2", this.getHeight() - 1, 15, cellules, b4, 1,getAssiettes());
 
                 // this.assiettes = new Assiettes(4);
                 this.assiettes = new Assiettes(4, assiettes);
