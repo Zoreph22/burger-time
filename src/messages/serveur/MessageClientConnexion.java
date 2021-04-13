@@ -1,6 +1,7 @@
 package messages.serveur;
 
 import client.ClientSocket;
+import java.util.UUID;
 import messages.Message;
 import serveur.phases.Phase;
 import serveur.phases.PhaseLobby;
@@ -12,23 +13,25 @@ import utils.RawConsoleInput;
 public class MessageClientConnexion extends Message {
 
     // Identifiant du client
-    private int idClient;
+    private UUID idClient;
 
     /**
      * @param idClient Identifiant du client
      */
     public MessageClientConnexion(String idClient) {
-        this.idClient = Integer.valueOf(idClient);
+        this.idClient = UUID.fromString(idClient);
     }
 
     /**
-     * Déconnecter le client du serveur
+     * Connecter le client du serveur
      */
     @Override
     public void action() {
         ClientSocket socket = ClientSocket.getInstance();
         Phase phase = socket.getGame().getPhaseCourante();
 
+        socket.addClientId(this.idClient);
+        
         // Si on est en phase lobby, enlever le être prêt
         if (phase.getNom().equals("PhaseLobby")) {
             PhaseLobby lobby = (PhaseLobby) phase;

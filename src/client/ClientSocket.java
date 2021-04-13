@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.UUID;
 import logic.Game;
 import serveur.phases.PhaseLobby;
 import utils.RawConsoleInput;
@@ -26,7 +28,9 @@ public class ClientSocket {
     // Instance du jeu
     private Game game;
     // Identifiant du client
-    private int id;
+    private UUID id;
+    // Identifiant des autres clients connectés au serveur
+    private ArrayList<UUID> clientsId = new ArrayList<>();
 
     private ClientSocket() {
         this.game = new Game();
@@ -45,11 +49,39 @@ public class ClientSocket {
         return instance;
     }
 
-    public void setIdClient(int idClient) {
+    /**
+     * Ajouter un identifiant d'un autre client du serveur
+     *
+     * @param idClient Identifiant autre client
+     */
+    public void addClientId(UUID idClient) {
+        this.clientsId.add(idClient);
+    }
+
+    /**
+     * Supprimer un identifiant d'un autre client du serveur
+     *
+     * @param idClient Identifiant autre client
+     */
+    public void removeClientId(UUID idClient) {
+        this.clientsId.remove(idClient);
+    }
+
+    /**
+     * Modifier son identifiant client
+     *
+     * @param idClient Identifiant client
+     */
+    public void setIdClient(UUID idClient) {
         this.id = idClient;
     }
-    
-    public int getIdClient() {
+
+    /**
+     * Retourner son identifiant client
+     *
+     * @return Identifiant client
+     */
+    public UUID getIdClient() {
         return this.id;
     }
 

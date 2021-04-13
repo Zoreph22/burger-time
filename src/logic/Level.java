@@ -1,5 +1,7 @@
 package logic;
 
+import java.util.Random;
+import java.util.UUID;
 import utils.RawConsoleInput;
 
 public class Level {
@@ -26,10 +28,10 @@ public class Level {
     // Constructeurs
     public Level(int level) {
         levelCourant = level;
-        players = new Players(1);
+        players = new Players();
         enemys = new Enemys();
         initLevels();
-        
+
         for (Enemy enemy : this.enemys.getEnemys()) {
             enemy.getIa().start();
         }
@@ -65,25 +67,31 @@ public class Level {
     }
 
     // Symbol Get
-    public char getLadder(){
+    public char getLadder() {
         return this.ladder;
     }
-    public char getAir(){
+
+    public char getAir() {
         return this.air;
     }
-    public char getFloor(){
+
+    public char getFloor() {
         return this.floor;
     }
-    public char getBordHaut(){
+
+    public char getBordHaut() {
         return this.bord_haut;
     }
-    public char getBordBas(){
+
+    public char getBordBas() {
         return this.bord_bas;
     }
-    public char getBordDroite(){
+
+    public char getBordDroite() {
         return this.bord_droit;
     }
-    public char getBordGauche(){
+
+    public char getBordGauche() {
         return this.bord_gauche;
     }
 
@@ -160,55 +168,145 @@ public class Level {
                         }
                     }
                 }
-                
-                this.getPlayers().setPlayers(0, new Player(this.getHeight() - 1, 9, "C", cellules, this));
-                cellules[this.getHeight() - 1][9].setEntity(this.getPlayers().getPlayers(0));
-                
-                Enemy enemy = new Enemy(4, 13, "E", cellules, this);
+
+                /*this.getPlayers().setPlayers(0, new Player(this.getHeight() - 1, 9, "C", cellules, this));
+                cellules[this.getHeight() - 1][9].setEntity(this.getPlayers().getPlayers(0));*/
+ /*Enemy enemy = new Enemy(4, 13, "E", cellules, this);
                 this.getEnemys().setEnemys(enemy);
                 cellules[enemy.getPosition().getPosi()][enemy.getPosition().getPosj()].setEntity(enemy);
                 
                 Enemy enemy2 = new Enemy(1, 1, "E", cellules, this);
                 this.getEnemys().setEnemys(enemy2);
-                cellules[enemy2.getPosition().getPosi()][enemy2.getPosition().getPosj()].setEntity(enemy2);
-                
+                cellules[enemy2.getPosition().getPosi()][enemy2.getPosition().getPosj()].setEntity(enemy2);*/
                 Ingredient burger1[] = new Ingredient[4];
                 Ingredient burger2[] = new Ingredient[4];
-                Ingredient burger3[]  = new Ingredient[4];
+                Ingredient burger3[] = new Ingredient[4];
                 Ingredient burger4[] = new Ingredient[4];
-                
+
                 Burger b1 = new Burger(burger1);
                 Burger b2 = new Burger(burger2);
                 Burger b3 = new Burger(burger3);
                 Burger b4 = new Burger(burger4);
-                
+
                 Burger assiettes[] = {b1, b2, b3, b4};
-                
+
                 burger1[0] = new Ingredient("P1", 4, 3, cellules, b1, 4);
                 burger1[1] = new Ingredient("S", 8, 3, cellules, b1, 3);
                 burger1[2] = new Ingredient("V", 13, 3, cellules, b1, 2);
                 burger1[3] = new Ingredient("P2", this.getHeight() - 1, 3, cellules, b1, 1);
-                
+
                 burger2[0] = new Ingredient("P1", 6, 7, cellules, b2, 4);
                 burger2[1] = new Ingredient("S", 9, 7, cellules, b2, 3);
                 burger2[2] = new Ingredient("V", 13, 7, cellules, b2, 2);
                 burger2[3] = new Ingredient("P2", this.getHeight() - 1, 7, cellules, b2, 1);
-                
+
                 burger3[0] = new Ingredient("P1", 4, 11, cellules, b3, 4);
                 burger3[1] = new Ingredient("S", 9, 11, cellules, b3, 3);
                 burger3[2] = new Ingredient("V", 13, 11, cellules, b3, 2);
                 burger3[3] = new Ingredient("P2", this.getHeight() - 1, 11, cellules, b3, 1);
-                
+
                 burger4[0] = new Ingredient("P1", 4, 15, cellules, b4, 4);
                 burger4[1] = new Ingredient("S", 8, 15, cellules, b4, 3);
                 burger4[2] = new Ingredient("V", 11, 15, cellules, b4, 2);
                 burger4[3] = new Ingredient("P2", this.getHeight() - 1, 15, cellules, b4, 1);
-                
+
                 // this.assiettes = new Assiettes(4);
                 this.assiettes = new Assiettes(4, assiettes);
                 // this.getAssiettes().setAssiette(0, new Burger(burger1));
                 break;
         }
+    }
 
+    /**
+     * Peut-on se déplacer sur une position ?
+     *
+     * @param i Position i
+     * @param j Position j
+     * @return true si on peut se déplacer
+     */
+    public boolean peutSeDeplacer(int i, int j) {
+        if (this.cellules[i][j].isSol() && this.cellules[i + 1][j].isLadder()) {
+            return true;
+        }
+
+        if (this.cellules[i][j].isSol()
+                && (this.cellules[i + 1][j].isLadder())
+                && (this.cellules[i - 1][j].isLadder() || this.cellules[i - 1][j].isAir())) {
+            return true;
+        }
+
+        if (this.cellules[i][j].isAir() && this.cellules[i + 1][j].isSol()) {
+            return true;
+        }
+
+        if (this.cellules[i][j].isLadder()) {
+            return true;
+        }
+
+        if (this.cellules[i][j].isBord()) {
+            return false;
+        }
+
+        return false;
+    }
+
+    /**
+     * Générer une position spawnable
+     *
+     * @return Position spawnable
+     */
+    public Position generateSpawnablePos() {
+        Random r = new Random();
+        int i;
+        int j;
+
+        do {
+            i = r.nextInt(this.cellules.length);
+            j = r.nextInt(this.cellules[0].length);
+        } while (!this.peutSeDeplacer(i, j));
+
+        return new Position(i, j);
+    }
+
+    /**
+     * [SERVEUR] Spawn un autre joueur sur le niveau
+     *
+     * @param id Identifiant joueur
+     * @param symbole Symbole joueur
+     * @return Joueur spawné
+     */
+    public Player spawnJoueur(UUID id, String symbole) {
+        Position pos = this.generateSpawnablePos();
+        Player player = new Player(pos.getPosi(), pos.getPosj(), symbole, this.cellules, this);
+        this.getPlayers().setPlayer(id, player);
+        this.cellules[pos.getPosi()][pos.getPosj()].setEntity(player);
+        return player;
+    }
+
+    /**
+     * [CLIENT] Spawn son joueur
+     *
+     * @param id Identifiant de son joueur
+     * @param pos Position de spawn
+     */
+    public void spawnMonJoueur(UUID id, Position pos) {
+        Player player = new Player(pos.getPosi(), pos.getPosj(), "C", this.cellules, this);
+        this.getPlayers().setPlayer(id, player);
+        this.cellules[pos.getPosi()][pos.getPosj()].setEntity(player);
+        this.print();
+    }
+
+    /**
+     * [CLIENT] Spawn un autre joueur
+     *
+     * @param id Identifiant client
+     * @param pos Position de spawn
+     * @param symbole Symbole joueur
+     */
+    public void spawnOtherPlayer(UUID id, Position pos, String symbole) {
+        Player player = new Player(pos.getPosi(), pos.getPosj(), symbole, this.cellules, this);
+        this.getPlayers().setPlayer(id, player);
+        this.cellules[pos.getPosi()][pos.getPosj()].setEntity(player);
+        this.print();
     }
 }

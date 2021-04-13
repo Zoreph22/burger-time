@@ -25,6 +25,8 @@ public class MessageFactory {
                 return new MessageDeconnexionClient(args[1]);
             case "CLIENT_LOBBY_PLAYER_READY":
                 return new MessagePret();
+            case "CLIENT_PLAYER_MOVED":
+                return new MessagePlayerMoved(args[1], args[2]);
             default:
                 throw new Exception("Message reçu inconnu : " + msg);
         }
@@ -51,6 +53,10 @@ public class MessageFactory {
                 return new MessageLobbyActualiser(args[1], args[2]);
             case "SERVER_LOAD_LEVEL":
                 return new MessageEnvoyerLevel(args[1]);
+            case "SERVER_SPAWN_PLAYER":
+                return new MessageSpawnPlayer(args[1], args[2], args[3], args[4]);
+            case "SERVER_PLAYER_MOVED":
+                return new MessageServerPlayerMoved(args[1], args[2]);
             default:
                 throw new Exception("Message reçu inconnu : " + msg);
         }

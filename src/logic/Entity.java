@@ -54,6 +54,10 @@ public abstract class Entity extends Thread {
     public void setLevel(Level level) {
         this.level = level;
     }
+    
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
 
     // Méthode de déplacement
     public void up(Cellule[][] cellules) {

@@ -1,5 +1,6 @@
 package messages.client;
 
+import java.util.UUID;
 import messages.Message;
 import serveur.ServeurSocket;
 import serveur.phases.Phase;
@@ -11,13 +12,13 @@ import serveur.phases.PhaseLobby;
 public class MessageDeconnexionClient extends Message {
 
     // Identifiant du client
-    private int idClient;
+    private UUID idClient;
 
     /**
      * @param idClient Identifiant du client
      */
     public MessageDeconnexionClient(String idClient) {
-        this.idClient = Integer.valueOf(idClient);
+        this.idClient = UUID.fromString(idClient);
     }
 
     /**

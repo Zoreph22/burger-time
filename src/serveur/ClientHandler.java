@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import messages.Message;
@@ -20,7 +21,7 @@ public class ClientHandler extends Thread {
     // Le thread est en cours d'exécution ?
     private boolean running;
     // Identifiant associé au client
-    private int id;
+    private UUID id;
     // Socket du client
     private Socket clientSocket;
     // Flux de réception des messages
@@ -34,7 +35,7 @@ public class ClientHandler extends Thread {
      * @param clientSocket Socket du client connecté
      * @param id Identifiant du client
      */
-    public ClientHandler(Socket clientSocket, int id) {
+        public ClientHandler(Socket clientSocket, UUID id) {
         this.clientSocket = clientSocket;
         this.id = id;
         this.connecter();
@@ -45,7 +46,7 @@ public class ClientHandler extends Thread {
      *
      * @return Identifiant client
      */
-    public int getClientId() {
+    public UUID getClientId() {
         return this.id;
     }
 
@@ -166,6 +167,7 @@ public class ClientHandler extends Thread {
             msg.action();
         } catch (Exception ex) {
             this.error(ex.getMessage());
+            ex.printStackTrace(System.err);
         }
     }
 }
