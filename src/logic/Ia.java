@@ -2,6 +2,7 @@ package logic;
 
 import java.io.File;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import serveur.ServeurSocket;
 import utils.RawConsoleInput;
 
 public class Ia extends Thread {
@@ -9,6 +10,7 @@ public class Ia extends Thread {
     // Attributs
     private Entity enemy;
     private Level level;
+    private volatile boolean isRunning;
 
     // Constructeurs
     public Ia(Entity entity, Level level) {
@@ -16,12 +18,20 @@ public class Ia extends Thread {
         this.level = level;
     }
 
+    /**
+     * Arrêter l'IA
+     */
+    public void arreter() {
+        this.isRunning = false;
+    }
+    
     @Override
     public void run() {
-        while (true) {
+        this.isRunning = true;
+        
+        while (this.isRunning) {
             try {
                 changerPosition();
-                this.level.print();
                 Thread.sleep(1000);
             } catch (Exception e) {
                 e.printStackTrace(System.err);
@@ -144,15 +154,19 @@ public class Ia extends Thread {
         switch (direction) {
             case "up":
                 enemy.up(level.getCellules());
+                ServeurSocket.getInstance().broadcast("SERVER_ENEMY_MOVED" + "|" + enemy.getUuid() + "|UP");
                 break;
             case "down":
                 enemy.down(level.getCellules());
+                ServeurSocket.getInstance().broadcast("SERVER_ENEMY_MOVED" + "|" + enemy.getUuid() + "|DOWN");
                 break;
             case "left":
                 enemy.left(level.getCellules());
+                ServeurSocket.getInstance().broadcast("SERVER_ENEMY_MOVED" + "|" + enemy.getUuid() + "|LEFT");
                 break;
             case "right":
                 enemy.right(level.getCellules());
+                ServeurSocket.getInstance().broadcast("SERVER_ENEMY_MOVED" + "|" + enemy.getUuid() + "|RIGHT");
                 break;
         }
     }

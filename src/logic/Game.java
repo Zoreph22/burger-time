@@ -58,6 +58,19 @@ public class Game {
                     + "|" + player.getPosition().getPosj()
                     + "|" + player.getSymbol());
         }
+
+        // Spawner les ennemis
+        for (int i = 0; i < 2; i++) {
+            Enemy enemy = partie.getLevel().spawnEnemy();
+
+            socket.broadcast("SERVER_SPAWN_ENEMY"
+                    + "|" + enemy.getUuid()
+                    + "|" + enemy.getPosition().getPosi()
+                    + "|" + enemy.getPosition().getPosj());
+        }
+
+        // Activer l'IA des ennemis
+        partie.getLevel().getEnemys().startIAs();
     }
 
     /**

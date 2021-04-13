@@ -55,8 +55,12 @@ public class MessageFactory {
                 return new MessageEnvoyerLevel(args[1]);
             case "SERVER_SPAWN_PLAYER":
                 return new MessageSpawnPlayer(args[1], args[2], args[3], args[4]);
+            case "SERVER_SPAWN_ENEMY":
+                return new MessageSpawnEnemy(args[1], args[2], args[3]);
             case "SERVER_PLAYER_MOVED":
                 return new MessageServerPlayerMoved(args[1], args[2]);
+            case "SERVER_ENEMY_MOVED":
+                return new MessageEnemyMoved(args[1], args[2]);
             case "SERVER_LEVEL_WIN":
                 return new MessageLevelWin();
             default:

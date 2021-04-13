@@ -14,6 +14,10 @@ public class Enemys {
         return this.enemys.values();
     }
 
+    public Enemy getEnemy(UUID id) {
+        return this.enemys.get(id);
+    }
+
     // Set
     public void setEnemys(Enemy enemy) {
         this.enemys.put(enemy.getUuid(), enemy);
@@ -22,5 +26,23 @@ public class Enemys {
     // Constructeurs
     public Enemys() {
         this.enemys = new HashMap<>();
+    }
+
+    /**
+     * Démarrer les IA des ennemis
+     */
+    public void startIAs() {
+        for (Enemy enemy : this.enemys.values()) {
+            enemy.getIa().start();
+        }
+    }
+
+    /**
+     * Stopper les IA des ennemis
+     */
+    public void stopIAs() {
+        for (Enemy enemy : this.enemys.values()) {
+            enemy.getIa().arreter();
+        }
     }
 }

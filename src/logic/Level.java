@@ -31,10 +31,6 @@ public class Level {
         players = new Players();
         enemys = new Enemys();
         initLevels();
-
-        for (Enemy enemy : this.enemys.getEnemys()) {
-            enemy.getIa().start();
-        }
     }
 
     // Get
@@ -179,7 +175,7 @@ public class Level {
                 this.getEnemys().setEnemys(enemy2);
                 cellules[enemy2.getPosition().getPosi()][enemy2.getPosition().getPosj()].setEntity(enemy2);*/
                 this.assiettes = new Assiettes(4);
-                
+
                 Ingredient burger1[] = new Ingredient[4];
                 Ingredient burger2[] = new Ingredient[4];
                 Ingredient burger3[] = new Ingredient[4];
@@ -192,25 +188,25 @@ public class Level {
 
                 Burger assiettes[] = {b1, b2, b3, b4};
 
-                burger1[0] = new Ingredient("P1", 4, 3, cellules, b1, 4,getAssiettes());
-                burger1[1] = new Ingredient("S", 8, 3, cellules, b1, 3,getAssiettes());
-                burger1[2] = new Ingredient("V", 13, 3, cellules, b1, 2,getAssiettes());
-                burger1[3] = new Ingredient("P2", this.getHeight() - 1, 3, cellules, b1, 1,getAssiettes());
+                burger1[0] = new Ingredient("P1", 4, 3, cellules, b1, 4, getAssiettes());
+                burger1[1] = new Ingredient("S", 8, 3, cellules, b1, 3, getAssiettes());
+                burger1[2] = new Ingredient("V", 13, 3, cellules, b1, 2, getAssiettes());
+                burger1[3] = new Ingredient("P2", this.getHeight() - 1, 3, cellules, b1, 1, getAssiettes());
 
-                burger2[0] = new Ingredient("P1", 6, 7, cellules, b2, 4,getAssiettes());
-                burger2[1] = new Ingredient("S", 9, 7, cellules, b2, 3,getAssiettes());
-                burger2[2] = new Ingredient("V", 13, 7, cellules, b2, 2,getAssiettes());
-                burger2[3] = new Ingredient("P2", this.getHeight() - 1, 7, cellules, b2, 1,getAssiettes());
+                burger2[0] = new Ingredient("P1", 6, 7, cellules, b2, 4, getAssiettes());
+                burger2[1] = new Ingredient("S", 9, 7, cellules, b2, 3, getAssiettes());
+                burger2[2] = new Ingredient("V", 13, 7, cellules, b2, 2, getAssiettes());
+                burger2[3] = new Ingredient("P2", this.getHeight() - 1, 7, cellules, b2, 1, getAssiettes());
 
-                burger3[0] = new Ingredient("P1", 4, 11, cellules, b3, 4,getAssiettes());
-                burger3[1] = new Ingredient("S", 9, 11, cellules, b3, 3,getAssiettes());
-                burger3[2] = new Ingredient("V", 13, 11, cellules, b3, 2,getAssiettes());
-                burger3[3] = new Ingredient("P2", this.getHeight() - 1, 11, cellules, b3, 1,getAssiettes());
+                burger3[0] = new Ingredient("P1", 4, 11, cellules, b3, 4, getAssiettes());
+                burger3[1] = new Ingredient("S", 9, 11, cellules, b3, 3, getAssiettes());
+                burger3[2] = new Ingredient("V", 13, 11, cellules, b3, 2, getAssiettes());
+                burger3[3] = new Ingredient("P2", this.getHeight() - 1, 11, cellules, b3, 1, getAssiettes());
 
-                burger4[0] = new Ingredient("P1", 4, 15, cellules, b4, 4,getAssiettes());
-                burger4[1] = new Ingredient("S", 8, 15, cellules, b4, 3,getAssiettes());
-                burger4[2] = new Ingredient("V", 11, 15, cellules, b4, 2,getAssiettes());
-                burger4[3] = new Ingredient("P2", this.getHeight() - 1, 15, cellules, b4, 1,getAssiettes());
+                burger4[0] = new Ingredient("P1", 4, 15, cellules, b4, 4, getAssiettes());
+                burger4[1] = new Ingredient("S", 8, 15, cellules, b4, 3, getAssiettes());
+                burger4[2] = new Ingredient("V", 11, 15, cellules, b4, 2, getAssiettes());
+                burger4[3] = new Ingredient("P2", this.getHeight() - 1, 15, cellules, b4, 1, getAssiettes());
 
                 // this.assiettes = new Assiettes(4);
                 // this.getAssiettes().setAssiette(0, new Burger(burger1));
@@ -256,6 +252,33 @@ public class Level {
     }
 
     /**
+     * Peut-on spawner sur une position ?
+     *
+     * @param i Position i
+     * @param j Position j
+     * @return true si on peut spawner ici
+     */
+    public boolean peutSpawner(int i, int j) {
+        if (this.cellules[i][j].getEntity() != null) {
+            return false;
+        }
+
+        if (this.cellules[i][j].isAir() && !this.cellules[i + 1][j].isSol()) {
+            return false;
+        }
+
+        if (this.cellules[i][j].isSol()) {
+            return false;
+        }
+
+        if (this.cellules[i][j].isBord()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Générer une position spawnable
      *
      * @return Position spawnable
@@ -268,7 +291,7 @@ public class Level {
         do {
             i = r.nextInt(this.cellules.length);
             j = r.nextInt(this.cellules[0].length);
-        } while (!this.peutSeDeplacer(i, j));
+        } while (!this.peutSpawner(i, j));
 
         return new Position(i, j);
     }
@@ -313,6 +336,34 @@ public class Level {
         Player player = new Player(pos.getPosi(), pos.getPosj(), symbole, this.cellules, this);
         this.getPlayers().setPlayer(id, player);
         this.cellules[pos.getPosi()][pos.getPosj()].setEntity(player);
+        this.print();
+        this.getAssiettes().print();
+    }
+
+    /**
+     * [SERVEUR] Spawn un ennemi
+     *
+     * @return Ennemi spawné
+     */
+    public Enemy spawnEnemy() {
+        Position pos = this.generateSpawnablePos();
+        Enemy enemy = new Enemy(pos.getPosi(), pos.getPosj(), "E", this.cellules, this);
+        this.getEnemys().setEnemys(enemy);
+        this.cellules[pos.getPosi()][pos.getPosj()].setEntity(enemy);
+        return enemy;
+    }
+
+    /**
+     * [CLIENT] Spawn un ennemi
+     *
+     * @param id Identifiant de l'ennemi
+     * @param pos Position de spawn
+     */
+    public void spawnEnemyAt(UUID id, Position pos) {
+        Enemy enemy = new Enemy(pos.getPosi(), pos.getPosj(), "E", this.cellules, this);
+        enemy.setUuid(id);
+        this.getEnemys().setEnemys(enemy);
+        this.cellules[pos.getPosi()][pos.getPosj()].setEntity(enemy);
         this.print();
         this.getAssiettes().print();
     }
