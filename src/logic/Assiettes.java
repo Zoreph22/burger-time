@@ -14,7 +14,6 @@ public class Assiettes {
     public Assiettes(int size) {
         setSize(size);
         burgers = new Burger[this.size];
-        complet = new boolean[this.size];
         //initBurger();
     }
 

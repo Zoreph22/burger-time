@@ -294,6 +294,7 @@ public class Level {
         this.getPlayers().setPlayer(id, player);
         this.cellules[pos.getPosi()][pos.getPosj()].setEntity(player);
         this.print();
+        level.getAssiettes().print();
     }
 
     /**
@@ -308,5 +309,6 @@ public class Level {
         this.getPlayers().setPlayer(id, player);
         this.cellules[pos.getPosi()][pos.getPosj()].setEntity(player);
         this.print();
+        level.getAssiettes().print();
     }
 }

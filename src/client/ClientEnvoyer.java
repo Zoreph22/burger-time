@@ -86,24 +86,16 @@ public class ClientEnvoyer extends Thread {
 
             switch (this.codeToucheAppuyee) {
                 case 122: // Z minuscule
-                    //level.getPlayers().getMonJoueur().up(level.getCellules());
                     socket.envoyer("CLIENT_PLAYER_MOVED|" + socket.getIdClient() + "|UP");
-                    //level.print();
                     break;
                 case 115: // S minuscule
-                    //level.getPlayers().getMonJoueur().down(level.getCellules());
                     socket.envoyer("CLIENT_PLAYER_MOVED|" + socket.getIdClient() + "|DOWN");
-                    //level.print();
                     break;
                 case 113: // Q minuscule
-                    //level.getPlayers().getMonJoueur().left(level.getCellules());
                     socket.envoyer("CLIENT_PLAYER_MOVED|" + socket.getIdClient() + "|LEFT");
-                    //level.print();
                     break;
                 case 100: // D minuscule
-                    //level.getPlayers().getMonJoueur().right(level.getCellules());
                     socket.envoyer("CLIENT_PLAYER_MOVED|" + socket.getIdClient() + "|RIGHT");
-                    //level.print();
                     break;
                 case 32: // Espace
                     break;

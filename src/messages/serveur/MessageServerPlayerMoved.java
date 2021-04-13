@@ -49,6 +49,7 @@ public class MessageServerPlayerMoved extends Message {
         }
         
         level.print();
+        level.getAssiettes().print();
     }
 
 }
