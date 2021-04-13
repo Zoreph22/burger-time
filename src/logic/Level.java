@@ -178,6 +178,8 @@ public class Level {
                 Enemy enemy2 = new Enemy(1, 1, "E", cellules, this);
                 this.getEnemys().setEnemys(enemy2);
                 cellules[enemy2.getPosition().getPosi()][enemy2.getPosition().getPosj()].setEntity(enemy2);*/
+                this.assiettes = new Assiettes(4);
+                
                 Ingredient burger1[] = new Ingredient[4];
                 Ingredient burger2[] = new Ingredient[4];
                 Ingredient burger3[] = new Ingredient[4];
@@ -211,8 +213,11 @@ public class Level {
                 burger4[3] = new Ingredient("P2", this.getHeight() - 1, 15, cellules, b4, 1,getAssiettes());
 
                 // this.assiettes = new Assiettes(4);
-                this.assiettes = new Assiettes(4, assiettes);
                 // this.getAssiettes().setAssiette(0, new Burger(burger1));
+                this.assiettes.setAssiette(0, b1);
+                this.assiettes.setAssiette(1, b2);
+                this.assiettes.setAssiette(2, b3);
+                this.assiettes.setAssiette(3, b4);
                 break;
         }
     }

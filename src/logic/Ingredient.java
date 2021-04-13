@@ -20,9 +20,9 @@ public class Ingredient extends Thread {
         this.cellules = cellules;
         this.dansAssiette = false;
         this.palierActuel = palierActuel;
+        this.assiettes = assiettes;
         initMorceau(i, j);
         placerDansCellule(cellules);
-        this.assiettes = assiettes;
     }
 
     public Ingredient(String type, int i, int j) {
