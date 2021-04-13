@@ -1,6 +1,7 @@
 package logic;
 
 import serveur.ServeurSocket;
+import serveur.phases.PhaseGagner;
 import utils.RawConsoleInput;
 
 public class Assiettes {
@@ -153,6 +154,7 @@ public class Assiettes {
             setGagner(true);
 
             if (ServeurSocket.isServeur()) {
+                ServeurSocket.getInstance().getGame().setPhaseCourante(new PhaseGagner());
                 ServeurSocket.getInstance().broadcast("SERVER_LEVEL_WIN");
             }
         }

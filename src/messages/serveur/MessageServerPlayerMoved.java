@@ -4,6 +4,7 @@ import client.ClientSocket;
 import java.util.UUID;
 import logic.Level;
 import messages.Message;
+import serveur.phases.Phase;
 import serveur.phases.PhasePartie;
 
 /**
@@ -30,7 +31,14 @@ public class MessageServerPlayerMoved extends Message {
      */
     @Override
     public void action() {
-        PhasePartie partie = (PhasePartie) ClientSocket.getInstance().getGame().getPhaseCourante();
+        Phase phase = ClientSocket.getInstance().getGame().getPhaseCourante();
+
+        // Ne rien faire, si on est pas en partie
+        if (!phase.getNom().equals("PhasePartie")) {
+            return;
+        }
+
+        PhasePartie partie = (PhasePartie) phase;
         Level level = partie.getLevel();
 
         switch (this.direction) {
@@ -47,7 +55,7 @@ public class MessageServerPlayerMoved extends Message {
                 level.getPlayers().getPlayer(this.idClient).right(level.getCellules());
                 break;
         }
-        
+
         level.print();
         level.getAssiettes().print();
     }

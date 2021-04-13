@@ -100,7 +100,11 @@ public class ClientEnvoyer extends Thread {
                 case 32: // Espace
                     break;
             }
+        }
 
+        // Phase gagner
+        if (phase.getNom().equals("PhaseGagner")) {
+            return;
         }
 
     }

@@ -64,6 +64,8 @@ public class Game {
      * [CLIENT] Gagner le niveau
      */
     public void gagnerNiveau() {
-        this.phaseCourante = new PhaseGagner();
+        PhaseGagner gagner = new PhaseGagner();
+        this.phaseCourante = gagner;
+        gagner.afficher();
     }
 }
