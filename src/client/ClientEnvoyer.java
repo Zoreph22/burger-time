@@ -38,11 +38,22 @@ public class ClientEnvoyer extends Thread {
      * Capturer les inputs clavier
      */
     public void boucleClavier() {
+        long start = 0;
+        long finish = 0;
+        long timeElapsed = 999999;
+
         while (!this.socket.isClosed()) {
             try {
                 this.codeToucheAppuyee = RawConsoleInput.read(true);
-                this.reagirAuToucheClavier();
-            } catch (IOException ex) {
+                finish = System.currentTimeMillis();
+                timeElapsed = finish - start;
+
+                // Ne pas se déplacer trop vite
+                if (timeElapsed > 250) {
+                    start = System.currentTimeMillis();
+                    this.reagirAuToucheClavier();
+                }
+            } catch (Exception ex) {
                 ex.printStackTrace(System.err);
             }
         }
@@ -88,7 +99,7 @@ public class ClientEnvoyer extends Thread {
             if (level.getPlayers().getMonJoueur().getMort()) {
                 return;
             }
-            
+
             switch (this.codeToucheAppuyee) {
                 case 122: // Z minuscule
                     socket.envoyer("CLIENT_PLAYER_MOVED|" + socket.getIdClient() + "|UP");

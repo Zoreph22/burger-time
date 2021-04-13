@@ -115,7 +115,6 @@ public class Burger {
          * le mettre directement dans l'assiette
          */
         if (source.getPalierActuel() == 1) {
-            RawConsoleInput.println("HERE1");
             source.mettreDansAssiette();
             return;
         }
@@ -125,7 +124,6 @@ public class Burger {
          * on descend d'un palier l'ingrédient source
          */
         if (!this.hasIngredientAuPalier(source.getPalierActuel() - 1)) {
-            RawConsoleInput.println("HERE2 : " + source.getPalierActuel());
             source.descendrePalier();
             return;
         }
@@ -134,9 +132,7 @@ public class Burger {
          * Sinon, on fait descendre d'un palier chaque ingrédient en dessous
          * de l'ingrédient source
          */
-        {
-            RawConsoleInput.println("HERE3 : " + indexSource);
-            
+        { 
             source.setPalierActuel(source.getPalierActuel() - 1);
             Ingredient enCours = source;
             

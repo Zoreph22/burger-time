@@ -159,7 +159,7 @@ public class ClientSocket {
      * @param message Le message à envoyer
      */
     public void envoyer(String message) {
-        RawConsoleInput.println(">> " + message);
+        //RawConsoleInput.println(">> " + message);
         this.fluxSortant.println(message);
     }
 
@@ -171,7 +171,7 @@ public class ClientSocket {
      */
     public String recevoir() throws IOException {
         String message = this.fluxEntrant.readLine();
-        RawConsoleInput.println("<< " + message);
+        //RawConsoleInput.println("<< " + message);
         return message;
     }
 
