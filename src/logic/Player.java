@@ -1,5 +1,6 @@
 package logic;
 
+import serveur.ServeurSocket;
 import utils.RawConsoleInput;
 
 public class Player extends Entity {
@@ -18,7 +19,7 @@ public class Player extends Entity {
 
     @Override
     public void collisionEffect(Entity entity) {
-        RawConsoleInput.println("TOUCHE!!!");
+
     }
 
     @Override

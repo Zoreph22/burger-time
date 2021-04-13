@@ -61,6 +61,8 @@ public class MessageFactory {
                 return new MessageServerPlayerMoved(args[1], args[2]);
             case "SERVER_ENEMY_MOVED":
                 return new MessageEnemyMoved(args[1], args[2]);
+            case "SERVER_PLAYER_DIED":
+                return new MessagePlayerDied(args[1]);
             case "SERVER_LEVEL_WIN":
                 return new MessageLevelWin();
             default:

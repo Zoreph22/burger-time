@@ -24,11 +24,11 @@ public class Ia extends Thread {
     public void arreter() {
         this.isRunning = false;
     }
-    
+
     @Override
     public void run() {
         this.isRunning = true;
-        
+
         while (this.isRunning) {
             try {
                 changerPosition();
@@ -118,6 +118,11 @@ public class Ia extends Thread {
         String direction = "";
         int distanceMin = 999999;
         for (Player player : this.getLevel().getPlayers().getPlayers()) {
+            // Ne pas chercher les joueurs morts
+            if (player.getMort()) {
+                continue;
+            }
+
             int posi = enemy.getPosition().getPosi();
             int posj = enemy.getPosition().getPosj();
 

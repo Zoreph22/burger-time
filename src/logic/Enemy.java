@@ -1,5 +1,6 @@
 package logic;
 
+import serveur.ServeurSocket;
 import utils.RawConsoleInput;
 
 public class Enemy extends Entity {
@@ -29,13 +30,20 @@ public class Enemy extends Entity {
     @Override
     public void collisionEffect(Entity entity) {
         if (entity.getType().equals("Player")) {
-            RawConsoleInput.println("PLAYER TOUCHÉ");
-                entity.setVie(entity.getVie()-1);
-                if(entity.getVie() <= 0){
-                    entity.setMort(true);
-                    Position pos = entity.getPosition();
-                    entity.getCellules()[pos.getPosi()][pos.getPosj()].setEntity(null);
+
+            entity.setVie(entity.getVie() - 1);
+
+            if (entity.getVie() <= 0) {
+                entity.setMort(true);
+
+                Position pos = entity.getPosition();
+                entity.getCellules()[pos.getPosi()][pos.getPosj()].setEntity(null);
+
+                if (ServeurSocket.isServeur()) {
+                    ServeurSocket.getInstance().broadcast("SERVER_PLAYER_DIED|" + entity.getUuid());
                 }
+
+            }
         }
     }
 

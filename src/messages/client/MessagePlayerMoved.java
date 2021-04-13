@@ -34,6 +34,11 @@ public class MessagePlayerMoved extends Message {
         PhasePartie partie = (PhasePartie) ServeurSocket.getInstance().getGame().getPhaseCourante();
         Level level = partie.getLevel();
 
+        // Ne rien faire si le joueur est mort
+        if (level.getPlayers().getPlayer(this.idClient).getMort()) {
+            return;
+        }
+        
         switch (this.direction) {
             case "UP":
                 level.getPlayers().getPlayer(this.idClient).up(level.getCellules());

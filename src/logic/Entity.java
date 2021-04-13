@@ -191,9 +191,6 @@ public abstract class Entity extends Thread {
     }
 
     public boolean gererCollision(int posi, int posj) {
-        // Entity entity = this.entityCollision(cellules[posi][posj].getEntity());
-        // Morceau morceau = this.morceauCollision(cellules[posi][posj].getMorceau());
-
         Entity entity = cellules[posi][posj].getEntity();
         Morceau morceau = cellules[posi][posj].getMorceau();
 

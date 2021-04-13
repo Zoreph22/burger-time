@@ -41,6 +41,11 @@ public class MessageServerPlayerMoved extends Message {
         PhasePartie partie = (PhasePartie) phase;
         Level level = partie.getLevel();
 
+        // Ne rien faire, si on est mort
+        if (level.getPlayers().getMonJoueur().getMort()) {
+            return;
+        }
+
         switch (this.direction) {
             case "UP":
                 level.getPlayers().getPlayer(this.idClient).up(level.getCellules());
@@ -56,8 +61,7 @@ public class MessageServerPlayerMoved extends Message {
                 break;
         }
 
-        level.print();
-        level.getAssiettes().print();
+        level.printAll();
     }
 
 }

@@ -98,7 +98,6 @@ public class Level {
 
     // Méthode d'affichage du level.
     public void print() {
-        RawConsoleInput.clear();
         for (int i = 0; i < getHeight() + 2; i++) {
             for (int j = 0; j < getWidth() + 2; j++) {
                 RawConsoleInput.print("" + cellules[i][j]);
@@ -321,8 +320,7 @@ public class Level {
         Player player = new Player(pos.getPosi(), pos.getPosj(), "C", this.cellules, this);
         this.getPlayers().setPlayer(id, player);
         this.cellules[pos.getPosi()][pos.getPosj()].setEntity(player);
-        this.print();
-        this.getAssiettes().print();
+        this.printAll();
     }
 
     /**
@@ -336,8 +334,7 @@ public class Level {
         Player player = new Player(pos.getPosi(), pos.getPosj(), symbole, this.cellules, this);
         this.getPlayers().setPlayer(id, player);
         this.cellules[pos.getPosi()][pos.getPosj()].setEntity(player);
-        this.print();
-        this.getAssiettes().print();
+        this.printAll();
     }
 
     /**
@@ -364,6 +361,15 @@ public class Level {
         enemy.setUuid(id);
         this.getEnemys().setEnemys(enemy);
         this.cellules[pos.getPosi()][pos.getPosj()].setEntity(enemy);
+        this.printAll();
+    }
+
+    /**
+     * Afficher toutes les interfaces
+     */
+    public void printAll() {
+        RawConsoleInput.clear();
+        RawConsoleInput.println("Vies restantes : " + this.getPlayers().getMonJoueur().getVie());
         this.print();
         this.getAssiettes().print();
     }

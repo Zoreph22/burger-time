@@ -52,7 +52,7 @@ public class ClientEnvoyer extends Thread {
         Game game = ClientSocket.getInstance().getGame();
         Phase phase = game.getPhaseCourante();
 
-        // Ne rien si on est dans aucune phase
+        // Ne rien faire si on est dans aucune phase
         if (phase == null) {
             return;
         }
@@ -84,6 +84,11 @@ public class ClientEnvoyer extends Thread {
             PhasePartie partie = (PhasePartie) phase;
             Level level = partie.getLevel();
 
+            // Ne rien faire si le joueur est mort
+            if (level.getPlayers().getMonJoueur().getMort()) {
+                return;
+            }
+            
             switch (this.codeToucheAppuyee) {
                 case 122: // Z minuscule
                     socket.envoyer("CLIENT_PLAYER_MOVED|" + socket.getIdClient() + "|UP");

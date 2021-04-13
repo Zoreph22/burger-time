@@ -56,8 +56,7 @@ public class MessageEnemyMoved extends Message {
                 break;
         }
 
-        level.print();
-        level.getAssiettes().print();
+        level.printAll();
     }
 
 }
