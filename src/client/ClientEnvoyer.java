@@ -4,8 +4,10 @@ import java.awt.event.KeyEvent;
 import utils.RawConsoleInput;
 import java.io.IOException;
 import logic.Game;
+import logic.Level;
 import serveur.phases.Phase;
 import serveur.phases.PhaseLobby;
+import serveur.phases.PhasePartie;
 
 /**
  * Classe qui gère la capture des touches du clavier, et envoie les actions
@@ -54,7 +56,7 @@ public class ClientEnvoyer extends Thread {
         if (phase == null) {
             return;
         }
-        
+
         // Quitter le jeu à l'appuie de la touche Échap
         if (this.codeToucheAppuyee == KeyEvent.VK_ESCAPE) {
             this.socket.deconnecter();
@@ -74,6 +76,37 @@ public class ClientEnvoyer extends Thread {
 
                 ClientSocket.getInstance().envoyer("CLIENT_LOBBY_PLAYER_READY");
                 lobby.setEstPret(true);
+            }
+        }
+
+        // Phase partie
+        if (phase.getNom().equals("PhasePartie")) {
+            PhasePartie partie = (PhasePartie) phase;
+            Level level = partie.getLevel();
+
+            switch (this.codeToucheAppuyee) {
+                case 122: // Z minuscule
+                    //level.getPlayers().getMonJoueur().up(level.getCellules());
+                    socket.envoyer("CLIENT_PLAYER_MOVED|" + socket.getIdClient() + "|UP");
+                    //level.print();
+                    break;
+                case 115: // S minuscule
+                    //level.getPlayers().getMonJoueur().down(level.getCellules());
+                    socket.envoyer("CLIENT_PLAYER_MOVED|" + socket.getIdClient() + "|DOWN");
+                    //level.print();
+                    break;
+                case 113: // Q minuscule
+                    //level.getPlayers().getMonJoueur().left(level.getCellules());
+                    socket.envoyer("CLIENT_PLAYER_MOVED|" + socket.getIdClient() + "|LEFT");
+                    //level.print();
+                    break;
+                case 100: // D minuscule
+                    //level.getPlayers().getMonJoueur().right(level.getCellules());
+                    socket.envoyer("CLIENT_PLAYER_MOVED|" + socket.getIdClient() + "|RIGHT");
+                    //level.print();
+                    break;
+                case 32: // Espace
+                    break;
             }
 
         }

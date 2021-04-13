@@ -65,6 +65,10 @@ public abstract class Entity extends Thread {
     public void setLevel(Level level) {
         this.level = level;
     }
+    
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
 
     public void setVie(int vie) {
         this.vie = vie;

@@ -31,10 +31,7 @@ public class MessagePret extends Message {
     private void demarrerPartie() {
         RawConsoleInput.println("Démarrage de la partie...");
         ServeurSocket.getInstance().setAcceptCon(false);
-        PhasePartie partie = new PhasePartie();
-        partie.setLevel(0);
-        ServeurSocket.getInstance().getGame().setPhaseCourante(partie);
-        ServeurSocket.getInstance().broadcast("SERVER_LOAD_LEVEL|" + 0);
+        ServeurSocket.getInstance().getGame().demarrerPhasePartie();
         RawConsoleInput.println("Partie démarrée.");
     }
 

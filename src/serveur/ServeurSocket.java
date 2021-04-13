@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import logic.Game;
@@ -26,7 +28,7 @@ public class ServeurSocket extends Thread {
     // Socket du serveur
     private ServerSocket serverSocket;
     // Gestionnaire des clients connectés (clé = identifiant du client)
-    private HashMap<Integer, ClientHandler> clients = new HashMap<>();
+    private HashMap<UUID, ClientHandler> clients = new HashMap<>();
     // Nombre de clients connectés
     private int nbClients = 0;
     // Instance du jeu
@@ -100,7 +102,7 @@ public class ServeurSocket extends Thread {
      *
      * @param idClient Identifiant client
      */
-    public void deconnecterClient(int idClient) {
+    public void deconnecterClient(UUID idClient) {
         ClientHandler client = this.clients.get(idClient);
         client.deconnecter();
         this.clients.remove(idClient);
@@ -131,7 +133,7 @@ public class ServeurSocket extends Thread {
                 socket = serverSocket.accept();
 
                 if (this.isAccepteCon) {
-                    ClientHandler handler = new ClientHandler(socket, this.nbClients + 1);
+                    ClientHandler handler = new ClientHandler(socket, UUID.randomUUID());
                     this.clients.put(handler.getClientId(), handler);
                     this.nbClients++;
                     handler.start();
@@ -168,5 +170,23 @@ public class ServeurSocket extends Thread {
      */
     public void setAcceptCon(boolean accept) {
         this.isAccepteCon = accept;
+    }
+
+    /**
+     * Retourner les identifiants des clients
+     *
+     * @return Identfiants clients
+     */
+    public Collection<UUID> getClientsId() {
+        return this.clients.keySet();
+    }
+
+    /**
+     * Retourner le nombre de clients connectés
+     *
+     * @return Nombre clients
+     */
+    public int getClientsNumber() {
+        return this.clients.size();
     }
 }

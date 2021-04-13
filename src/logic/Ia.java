@@ -65,19 +65,19 @@ public class Ia extends Thread {
         while (!file.isEmpty()) {
             id = file.poll();
 
-            if (peutSeDeplacer(id.getPosi() - 1, id.getPosj()) && temp[id.getPosi() - 1][id.getPosj()] == 0) {
+            if (level.peutSeDeplacer(id.getPosi() - 1, id.getPosj()) && temp[id.getPosi() - 1][id.getPosj()] == 0) {
                 temp[id.getPosi() - 1][id.getPosj()] = nb;
                 file.add(new Position(id.getPosi() - 1, id.getPosj()));
             }
-            if (peutSeDeplacer(id.getPosi() + 1, id.getPosj()) && temp[id.getPosi() + 1][id.getPosj()] == 0) {
+            if (level.peutSeDeplacer(id.getPosi() + 1, id.getPosj()) && temp[id.getPosi() + 1][id.getPosj()] == 0) {
                 temp[id.getPosi() + 1][id.getPosj()] = nb;
                 file.add(new Position(id.getPosi() + 1, id.getPosj()));
             }
-            if (peutSeDeplacer(id.getPosi(), id.getPosj() - 1) && temp[id.getPosi()][id.getPosj() - 1] == 0) {
+            if (level.peutSeDeplacer(id.getPosi(), id.getPosj() - 1) && temp[id.getPosi()][id.getPosj() - 1] == 0) {
                 temp[id.getPosi()][id.getPosj() - 1] = nb;
                 file.add(new Position(id.getPosi(), id.getPosj() - 1));
             }
-            if (peutSeDeplacer(id.getPosi(), id.getPosj() + 1) && temp[id.getPosi()][id.getPosj() + 1] == 0) {
+            if (level.peutSeDeplacer(id.getPosi(), id.getPosj() + 1) && temp[id.getPosi()][id.getPosj() + 1] == 0) {
                 temp[id.getPosi()][id.getPosj() + 1] = nb;
                 file.add(new Position(id.getPosi(), id.getPosj() + 1));
             }
@@ -87,55 +87,19 @@ public class Ia extends Thread {
             }
         }
 
-        /*for (int i = 0; i < temp.length; i++) {
-            RawConsoleInput.println();
-
-            for (int j = 0; j < temp[0].length; j++) {
-                RawConsoleInput.print("-" + temp[i][j]);
-            }
-        }
-
-        RawConsoleInput.println("-------------------------------------------");*/
-
-        if (peutSeDeplacer(player.getPosition().getPosi() - 1, player.getPosition().getPosj()) && temp[player.getPosition().getPosi() - 1][player.getPosition().getPosj()] < retour) {
+        if (level.peutSeDeplacer(player.getPosition().getPosi() - 1, player.getPosition().getPosj()) && temp[player.getPosition().getPosi() - 1][player.getPosition().getPosj()] < retour) {
             retour = temp[player.getPosition().getPosi() - 1][player.getPosition().getPosj()];
         }
-        if (peutSeDeplacer(player.getPosition().getPosi() + 1, player.getPosition().getPosj()) && temp[player.getPosition().getPosi() + 1][player.getPosition().getPosj()] < retour) {
+        if (level.peutSeDeplacer(player.getPosition().getPosi() + 1, player.getPosition().getPosj()) && temp[player.getPosition().getPosi() + 1][player.getPosition().getPosj()] < retour) {
             retour = temp[player.getPosition().getPosi() + 1][player.getPosition().getPosj()];
         }
-        if (peutSeDeplacer(player.getPosition().getPosi(), player.getPosition().getPosj() - 1) && temp[player.getPosition().getPosi()][player.getPosition().getPosj() - 1] < retour) {
+        if (level.peutSeDeplacer(player.getPosition().getPosi(), player.getPosition().getPosj() - 1) && temp[player.getPosition().getPosi()][player.getPosition().getPosj() - 1] < retour) {
             retour = temp[player.getPosition().getPosi()][player.getPosition().getPosj() - 1];
         }
-        if (peutSeDeplacer(player.getPosition().getPosi(), player.getPosition().getPosj() + 1) && temp[player.getPosition().getPosi()][player.getPosition().getPosj() + 1] < retour) {
+        if (level.peutSeDeplacer(player.getPosition().getPosi(), player.getPosition().getPosj() + 1) && temp[player.getPosition().getPosi()][player.getPosition().getPosj() + 1] < retour) {
             retour = temp[player.getPosition().getPosi()][player.getPosition().getPosj() + 1];
         }
         return retour;
-    }
-
-    public boolean peutSeDeplacer(int i, int j) {
-        if (level.getCellules()[i][j].isSol() && level.getCellules()[i + 1][j].isLadder()) {
-            return true;
-        }
-
-        if (level.getCellules()[i][j].isSol()
-                && (level.getCellules()[i + 1][j].isLadder())
-                && (level.getCellules()[i - 1][j].isLadder() || level.getCellules()[i - 1][j].isAir())) {
-            return true;
-        }
-        
-        if (level.getCellules()[i][j].isAir() && level.getCellules()[i+1][j].isSol()) {
-            return true;
-        }
-
-        if (level.getCellules()[i][j].isLadder()) {
-            return true;
-        }
-
-        if (level.getCellules()[i][j].isBord()) {
-            return false;
-        }
-
-        return false;
     }
 
     // Déplacement
@@ -143,39 +107,40 @@ public class Ia extends Thread {
         int dist;
         String direction = "";
         int distanceMin = 999999;
-        for (int i = 0; i < level.getPlayers().playersSize(); i++) {
+        for (Player player : this.getLevel().getPlayers().getPlayers()) {
             int posi = enemy.getPosition().getPosi();
             int posj = enemy.getPosition().getPosj();
-            
-            if (peutSeDeplacer(posi-1, posj)) {
-                dist = distMin(new Position(posi-1, posj), level.getPlayers().getPlayers(i));
+
+            if (level.peutSeDeplacer(posi - 1, posj)) {
+                dist = distMin(new Position(posi - 1, posj), player);
                 if (dist < distanceMin) {
                     distanceMin = dist;
                     direction = "up";
                 }
             }
-            if (peutSeDeplacer(posi+1, posj)) {
-                dist = distMin(new Position(posi+1, posj), level.getPlayers().getPlayers(i));
+            if (level.peutSeDeplacer(posi + 1, posj)) {
+                dist = distMin(new Position(posi + 1, posj), player);
                 if (dist < distanceMin) {
                     distanceMin = dist;
                     direction = "down";
                 }
             }
-            if (peutSeDeplacer(posi, posj-1)) {
-                dist = distMin(new Position(posi, posj-1), level.getPlayers().getPlayers(i));
+            if (level.peutSeDeplacer(posi, posj - 1)) {
+                dist = distMin(new Position(posi, posj - 1), player);
                 if (dist < distanceMin) {
                     distanceMin = dist;
                     direction = "left";
                 }
             }
-            if (peutSeDeplacer(posi, posj+1)) {
-                dist = distMin(new Position(posi, posj+1), level.getPlayers().getPlayers(i));
+            if (level.peutSeDeplacer(posi, posj + 1)) {
+                dist = distMin(new Position(posi, posj + 1), player);
                 if (dist < distanceMin) {
                     distanceMin = dist;
                     direction = "right";
                 }
             }
         }
+
         switch (direction) {
             case "up":
                 enemy.up(level.getCellules());
