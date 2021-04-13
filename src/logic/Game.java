@@ -5,6 +5,7 @@ import serveur.ServeurSocket;
 import serveur.phases.Phase;
 import serveur.phases.PhaseGagner;
 import serveur.phases.PhasePartie;
+import serveur.phases.PhasePerdre;
 
 /**
  * Classe représentant le jeu
@@ -80,5 +81,14 @@ public class Game {
         PhaseGagner gagner = new PhaseGagner();
         this.phaseCourante = gagner;
         gagner.afficher();
+    }
+
+    /**
+     * [CLIENT] Perdre le niveau
+     */
+    public void perdreNiveau() {
+        PhasePerdre perdre = new PhasePerdre();
+        this.phaseCourante = perdre;
+        perdre.afficher();
     }
 }

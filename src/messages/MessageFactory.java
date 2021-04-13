@@ -65,6 +65,8 @@ public class MessageFactory {
                 return new MessagePlayerDied(args[1]);
             case "SERVER_LEVEL_WIN":
                 return new MessageLevelWin();
+            case "SERVER_LEVEL_LOSE":
+                return new MessageLevelLose();
             default:
                 throw new Exception("Message reçu inconnu : " + msg);
         }

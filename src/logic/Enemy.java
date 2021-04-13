@@ -1,6 +1,9 @@
 package logic;
 
 import serveur.ServeurSocket;
+import serveur.phases.PhaseGagner;
+import serveur.phases.PhasePartie;
+import serveur.phases.PhasePerdre;
 import utils.RawConsoleInput;
 
 public class Enemy extends Entity {
@@ -40,7 +43,23 @@ public class Enemy extends Entity {
                 entity.getCellules()[pos.getPosi()][pos.getPosj()].setEntity(null);
 
                 if (ServeurSocket.isServeur()) {
-                    ServeurSocket.getInstance().broadcast("SERVER_PLAYER_DIED|" + entity.getUuid());
+                    // Si tous les joueurs sont mort, écran de fin
+                    boolean tousMorts = true;
+
+                    for (Player player : level.getPlayers().getPlayers()) {
+                        if (!player.getMort()) {
+                            tousMorts = false;
+                            break;
+                        }
+                    }
+
+                    if (tousMorts) {
+                        ((PhasePartie) ServeurSocket.getInstance().getGame().getPhaseCourante()).getLevel().getEnemys().stopIAs();
+                        ServeurSocket.getInstance().getGame().setPhaseCourante(new PhasePerdre());
+                        ServeurSocket.getInstance().broadcast("SERVER_LEVEL_LOSE");
+                    } else {
+                        ServeurSocket.getInstance().broadcast("SERVER_PLAYER_DIED|" + entity.getUuid());
+                    }
                 }
 
             }

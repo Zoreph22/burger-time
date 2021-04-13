@@ -42,9 +42,9 @@ public class MessageServerPlayerMoved extends Message {
         Level level = partie.getLevel();
 
         // Ne rien faire, si on est mort
-        if (level.getPlayers().getMonJoueur().getMort()) {
+        /*if (level.getPlayers().getMonJoueur().getMort()) {
             return;
-        }
+        }*/
 
         switch (this.direction) {
             case "UP":
