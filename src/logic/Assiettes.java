@@ -1,5 +1,6 @@
 package logic;
 
+import serveur.ServeurSocket;
 import utils.RawConsoleInput;
 
 public class Assiettes {
@@ -7,11 +8,13 @@ public class Assiettes {
     // Attributs
     private Burger[] burgers;
     private int size;
+    private boolean gagner;
 
     // Constructeurs
     public Assiettes(int size) {
         setSize(size);
         burgers = new Burger[this.size];
+        complet = new boolean[this.size];
         //initBurger();
     }
 
@@ -29,6 +32,10 @@ public class Assiettes {
         return this.burgers[id];
     }
 
+    public Boolean getGagner(){
+        return this.gagner;
+    }
+
     // Set 
     public void setSize(int size) {
         this.size = size;
@@ -36,6 +43,10 @@ public class Assiettes {
 
     public void setAssiette(int id, Burger burger) {
         this.burgers[id] = burger;
+    }
+
+    public void setGagner(boolean gagner){
+        this.gagner = gagner;
     }
 
     // Méthode init 
@@ -127,5 +138,19 @@ public class Assiettes {
         }
 
         RawConsoleInput.println();
+    }
+
+    public void Gagner(){
+        int compte = 0;
+        for(int i = 0; i < burgers.length;i++){
+            Burger temp = burgers[i];
+            if(temp.estComplete()){
+                compte++;
+            }
+        }
+        if(compte == this.size){
+            setGagner(true);
+            ServeurSocket.getInstance().broadcast("SERVER_WIN");
+        }
     }
 }

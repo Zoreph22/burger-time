@@ -11,6 +11,8 @@ public abstract class Entity extends Thread {
     private Cellule[][] cellules;
     private Level level;
     private String type;
+    private int vie;
+    private boolean mort;
 
     // Constructeurs
     public Entity(int posi, int posj, Cellule[][] cellules, Level level) {
@@ -18,6 +20,7 @@ public abstract class Entity extends Thread {
         this.cellules = cellules;
         this.level = level;
         this.uuid = UUID.randomUUID();
+        this.vie = 3;
     }
 
     // Méthode run de Entity extends Thread
@@ -46,6 +49,14 @@ public abstract class Entity extends Thread {
         return this.pos;
     }
 
+    public int getVie() {
+        return this.vie;
+    }
+
+    public boolean getMort() {
+        return this.mort;
+    }
+
     // Set Attributs
     public void setSymbol(String symbol) {
         this.symbol = symbol;
@@ -55,12 +66,21 @@ public abstract class Entity extends Thread {
         this.level = level;
     }
 
+    public void setVie(int vie) {
+        this.vie = vie;
+    }
+
+    public void setMort(Boolean mort) {
+        this.mort = mort;
+    }
+
     // Méthode de déplacement
     public void up(Cellule[][] cellules) {
         if (pos.getPosi() > 0) {
             if (cellules[pos.getPosi() - 1][pos.getPosj()].getDecor() == getLevel().getLadder()) {
 
-                // Gérer l'éventuelle collision, et ne pas se déplacer s'il y a une entité sur la case haut
+                // Gérer l'éventuelle collision, et ne pas se déplacer s'il y a une entité sur
+                // la case haut
                 if (this.gererCollision(pos.getPosi() - 1, pos.getPosj()) == true) {
                     return;
                 }
@@ -68,9 +88,11 @@ public abstract class Entity extends Thread {
                 cellules[pos.getPosi()][pos.getPosj()].setEntity(null);
                 pos.setPosi(pos.getPosi() - 1);
                 cellules[pos.getPosi()][pos.getPosj()].setEntity(this);
-            } else if (cellules[pos.getPosi() - 1][pos.getPosj()].getDecor() == getLevel().getFloor() && cellules[pos.getPosi()][pos.getPosj()].getDecor() == getLevel().getLadder()) {
+            } else if (cellules[pos.getPosi() - 1][pos.getPosj()].getDecor() == getLevel().getFloor()
+                    && cellules[pos.getPosi()][pos.getPosj()].getDecor() == getLevel().getLadder()) {
 
-                // Gérer l'éventuelle collision, et ne pas se déplacer s'il y a une entité sur la case haut
+                // Gérer l'éventuelle collision, et ne pas se déplacer s'il y a une entité sur
+                // la case haut
                 if (this.gererCollision(pos.getPosi() - 2, pos.getPosj()) == true) {
                     return;
                 }
@@ -86,7 +108,8 @@ public abstract class Entity extends Thread {
         if (pos.getPosi() < cellules.length - 2) {
             if (cellules[pos.getPosi() + 1][pos.getPosj()].getDecor() == getLevel().getLadder()) {
 
-                // Gérer l'éventuelle collision, et ne pas se déplacer s'il y a une entité sur la case bas
+                // Gérer l'éventuelle collision, et ne pas se déplacer s'il y a une entité sur
+                // la case bas
                 if (this.gererCollision(pos.getPosi() + 1, pos.getPosj()) == true) {
                     return;
                 }
@@ -94,9 +117,12 @@ public abstract class Entity extends Thread {
                 cellules[pos.getPosi()][pos.getPosj()].setEntity(null);
                 pos.setPosi(pos.getPosi() + 1);
                 cellules[pos.getPosi()][pos.getPosj()].setEntity(this);
-            } else if (cellules[pos.getPosi() + 1][pos.getPosj()].getDecor() == getLevel().getFloor() && cellules[pos.getPosi() + 2][pos.getPosj()].getDecor() == getLevel().getLadder() && (pos.getPosi() < cellules.length - 3)) {
+            } else if (cellules[pos.getPosi() + 1][pos.getPosj()].getDecor() == getLevel().getFloor()
+                    && cellules[pos.getPosi() + 2][pos.getPosj()].getDecor() == getLevel().getLadder()
+                    && (pos.getPosi() < cellules.length - 3)) {
 
-                // Gérer l'éventuelle collision, et ne pas se déplacer s'il y a une entité sur la case bas
+                // Gérer l'éventuelle collision, et ne pas se déplacer s'il y a une entité sur
+                // la case bas
                 if (this.gererCollision(pos.getPosi() + 2, pos.getPosj()) == true) {
                     return;
                 }
@@ -123,7 +149,8 @@ public abstract class Entity extends Thread {
             return;
         }
 
-        // Gérer l'éventuelle collision, et ne pas se déplacer s'il y a une entité sur la case droite
+        // Gérer l'éventuelle collision, et ne pas se déplacer s'il y a une entité sur
+        // la case droite
         if (this.gererCollision(pos.getPosi(), pos.getPosj() + 1) == true) {
             return;
         }
@@ -148,7 +175,8 @@ public abstract class Entity extends Thread {
             return;
         }
 
-        // Gérer l'éventuelle collision, et ne pas se déplacer s'il y a une entité sur la case gauche
+        // Gérer l'éventuelle collision, et ne pas se déplacer s'il y a une entité sur
+        // la case gauche
         if (this.gererCollision(pos.getPosi(), pos.getPosj() - 1) == true) {
             return;
         }
@@ -159,8 +187,8 @@ public abstract class Entity extends Thread {
     }
 
     public boolean gererCollision(int posi, int posj) {
-        //Entity entity = this.entityCollision(cellules[posi][posj].getEntity());
-        //Morceau morceau = this.morceauCollision(cellules[posi][posj].getMorceau());
+        // Entity entity = this.entityCollision(cellules[posi][posj].getEntity());
+        // Morceau morceau = this.morceauCollision(cellules[posi][posj].getMorceau());
 
         Entity entity = cellules[posi][posj].getEntity();
         Morceau morceau = cellules[posi][posj].getMorceau();

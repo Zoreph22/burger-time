@@ -30,6 +30,12 @@ public class Enemy extends Entity {
     public void collisionEffect(Entity entity) {
         if (entity.getType().equals("Player")) {
             RawConsoleInput.println("PLAYER TOUCHÉ");
+                entity.setVie(entity.getVie()-1);
+                if(entity.getVie() <= 0){
+                    entity.setMort(true);
+                    Position pos = entity.getPosition();
+                    entity.getCellules()[pos.getPosi()][pos.getPosj()].setEntity(null);
+                }
         }
     }
 

@@ -7,7 +7,7 @@ public class Burger {
 
     // Attributs
     private Ingredient[] ingredients;
-
+    
     // Constructeurs
     public Burger() {
         ingredients = new Ingredient[4];
@@ -24,6 +24,10 @@ public class Burger {
     // Get
     public Ingredient getIngredient(int id) {
         return this.ingredients[id];
+    }
+
+    public int getIngredientLength(){
+        return this.ingredients.length;
     }
     
     public int getIndex(Ingredient ingredient) {
