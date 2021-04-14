@@ -50,7 +50,7 @@ public class ClientRecevoir extends Thread {
             msg = MessageFactory.creerMessageServeur(this.msgRecu);
             msg.action();
         } catch (Exception ex) {
-            ex.printStackTrace(System.err);
+            //ex.printStackTrace(System.err);
         }
     }
 }

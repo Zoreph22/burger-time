@@ -33,8 +33,8 @@ public class Ia extends Thread {
             try {
                 changerPosition();
                 Thread.sleep(1000);
-            } catch (Exception e) {
-                e.printStackTrace(System.err);
+            } catch (Exception ex) {
+                //ex.printStackTrace(System.err);
             }
         }
     }

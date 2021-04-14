@@ -54,7 +54,7 @@ public class ClientEnvoyer extends Thread {
                     this.reagirAuToucheClavier();
                 }
             } catch (Exception ex) {
-                ex.printStackTrace(System.err);
+                //ex.printStackTrace(System.err);
             }
         }
     }

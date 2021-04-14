@@ -72,7 +72,7 @@ public class RawConsoleInput {
                 System.out.flush();
             }
         } catch (IOException | InterruptedException ex) {
-            ex.printStackTrace(System.err);
+            //ex.printStackTrace(System.err);
         }
     }
 

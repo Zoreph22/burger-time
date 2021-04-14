@@ -167,7 +167,7 @@ public class ClientHandler extends Thread {
             msg.action();
         } catch (Exception ex) {
             this.error(ex.getMessage());
-            ex.printStackTrace(System.err);
+            //ex.printStackTrace(System.err);
         }
     }
 }

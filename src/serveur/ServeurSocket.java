@@ -155,7 +155,7 @@ public class ServeurSocket extends Thread {
             } catch (SocketException ex) {
             } catch (IOException ex) {
                 System.err.println("Erreur de connexion avec un client : " + ex.getMessage() + ".");
-                ex.printStackTrace(System.err);
+                //ex.printStackTrace(System.err);
             }
         }
     }
