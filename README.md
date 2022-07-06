@@ -5,7 +5,8 @@
 <div align="center">
   <h3 align="center">BurgerTime</h3>
   <p align="center">
-    <a href="#">View Demo (TODO)</a>
+    <a href="#">View Demo (TODO)</a> ·
+    <a href="https://github.com/Akwd22/contact-manager/releases/latest">Get latest release</a>
   </p>
 </div>
 
@@ -14,7 +15,6 @@
   <summary>Table of Contents</summary>
   <ol>
     <li><a href="#about-the-project">About The Project</a></li>
-    <li><a href="#context">Context</a></li>
     <li><a href="#built-with">Built With</a></li>
     <li><a href="#documentation">Documentation</a></li>
     <li><a href="#getting-started">Getting Started</a></li>
@@ -62,48 +62,12 @@ Entire project was built with Java.
 `▒` : Ladder.  
 `▬` : Walkable floor.
 
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 <!-- GETTING STARTED -->
 ## Getting Started
 
-If you don't want to compile, you can [get latest binaries](https://github.com/Akwd22/burger-time/releases/latest) and skip the next steps. Anyways, to get a local copy up and running follow the steps:
-
-### Prerequisites
-
-To compile the project, you will need:
-* [Make](https://en.wikipedia.org/wiki/Make_(software))
-* [CMake](https://cmake.org/)
-```sh
-apt-get install make
-apt-get install cmake
-```
-
-To execute the project, you will need:
-* [TeX Live](https://www.tug.org/texlive/)
-```sh
-apt-get install texlive-latex-base
-apt-get install texlive-latex-extra
-apt-get install texlive-lang-french
-```
-
-Optional dependency:
-```sh
-apt-get install doxygen
-```
-
-### Installation
-
-1. Clone the repo:
-   ```sh
-   git clone https://github.com/Akwd22/the-mind.git
-   ```
-2. Compile the project:
-   ```sh
-   cd src
-   cmake .
-   make
-   ```
-
-<p align="right">(<a href="#top">back to top</a>)</p>
+If you don't want to compile, you can [get latest binaries](https://github.com/Akwd22/burger-time/releases/latest).
 
 <!-- USAGE EXAMPLES -->
 ## Usage
