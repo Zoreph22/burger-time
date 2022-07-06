@@ -16,7 +16,7 @@
 
 # Package Files #
 *.jar
-!src/libs/*.jar
+!libs/*.jar
 *.war
 *.nar
 *.ear
