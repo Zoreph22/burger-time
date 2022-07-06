@@ -42,6 +42,7 @@ This project is the reproduction of the 80's video game [BurgerTime](https://en.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+<!-- BUILT WITH -->
 ## Built With
 
 Entire project was built with Java.
@@ -68,6 +69,8 @@ Entire project was built with Java.
 ## Getting Started
 
 If you don't want to compile, you can [get latest binaries](https://github.com/Akwd22/burger-time/releases/latest).
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
 ## Usage
