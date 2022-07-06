@@ -83,6 +83,12 @@ To play the game, you have to run a server (game), while clients (human players)
 
 *Note: if you want to play on the Internet, you must open the TCP port `25565` on your firewall.*
 
+**Controls:**
+- <kbd>Z</kbd> to climb a ladder.
+- <kbd>S</kbd> to climb down a ladder.
+- <kbd>Q</kbd> to move to the left.
+- <kbd>D</kbd> to move to the right.
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- Contributors -->
